@@ -1,94 +1,167 @@
-# Bubbles — Planejamento do Projeto
+# BUBBLES
+## Planejamento do Projeto
 
-## 1. Identificação do Projeto
+**Versão:** 0.4  
+**Projeto:** Bubbles — Jogo da Velha com Sistema Competitivo  
+**Curso:** Engenharia de Software — PIT II  
+**Status:** Planejamento revisado para desenvolvimento do MVP
 
-**Nome:** Bubbles
+---
 
-**Tipo:** Jogo digital de estratégia casual.
+# 1. Objetivo do projeto
 
-**Categoria:** Jogo da velha.
+O projeto Bubbles tem como objetivo desenvolver uma aplicação web de jogo da velha, com identidade visual fofa, colorida e divertida, permitindo partidas entre dois jogadores no mesmo dispositivo.
 
-**Plataformas:** Navegadores web e dispositivos Android.
+A aplicação contará com cadastro e autenticação de usuários, perfil individual, registro persistente das partidas, sistema de rating competitivo e classificação global.
 
-**Distribuição Android:** Aplicativo disponibilizado inicialmente por meio de arquivo APK.
+O desenvolvimento priorizará uma solução funcional, simples e organizada, contemplando os requisitos técnicos e acadêmicos estabelecidos para o PIT II.
 
-**Modalidades:** Multiplayer local e online.
+# 2. Escopo do projeto
 
-## 2. Descrição do Projeto
+A versão inicial contemplará:
 
-O Bubbles consiste no desenvolvimento de uma versão digital do jogo da velha, com uma identidade visual própria, baseada em bolhas coloridas, elementos gráficos divertidos e uma interface intuitiva.
+- Cadastro e autenticação de jogadores.
+- Perfil básico com nickname, rating e liga.
+- Jogo da velha com tabuleiro 3×3 e peças em formato de bolhas coloridas.
+- Partidas entre dois jogadores no mesmo dispositivo.
+- Identificação automática de vitórias e empates.
+- Registro persistente das partidas.
+- Sistema de rating baseado no Glicko original.
+- Classificação global dos jogadores.
+- Interface web adaptável a computadores e dispositivos Android.
 
-O jogo será desenvolvido para funcionar em navegadores web e dispositivos Android, permitindo partidas entre dois jogadores, tanto localmente quanto pela internet.
+As funcionalidades serão desenvolvidas considerando a simplicidade de utilização e a integridade dos dados.
 
-Na modalidade online, será estudada a utilização de comunicação peer-to-peer (P2P), permitindo a troca de informações entre os dispositivos dos participantes.
+# 3. Tecnologias previstas
 
-## 3. Objetivo Geral
+| Componente | Tecnologia |
+|---|---|
+| Linguagem do back-end | Java |
+| Framework | Spring Boot |
+| Arquitetura | MVC |
+| Front-end | HTML, CSS e JavaScript |
+| Interface e templates | Thymeleaf |
+| Persistência | Spring Data JPA |
+| Banco de dados | SQLite |
+| Testes automatizados | JUnit |
+| Controle de versão | Git e GitHub |
 
-Desenvolver um jogo da velha multiplataforma, com interface acessível, identidade visual própria e suporte a partidas locais e online entre dois jogadores.
+As tecnologias escolhidas permitem desenvolver uma aplicação organizada, com separação de responsabilidades e persistência relacional.
 
-## 4. Objetivos Específicos
+# 4. Arquitetura do sistema
 
-- Implementar o tabuleiro e as regras tradicionais do jogo da velha.
-- Desenvolver uma interface visual baseada em bolhas coloridas.
-- Implementar a alternância de turnos entre os jogadores.
-- Identificar automaticamente as condições de vitória e empate.
-- Permitir o início de novas partidas.
-- Disponibilizar modalidades local e online.
-- Desenvolver uma interface adaptável a diferentes tamanhos de tela.
-- Investigar e implementar comunicação P2P para partidas online.
-- Aplicar mecanismos de validação das jogadas e das mensagens recebidas.
-- Disponibilizar o jogo em navegadores e como aplicativo Android.
+O sistema utilizará o padrão arquitetural MVC, organizado em três componentes principais:
 
-## 5. Escopo Inicial
+**Model:** responsável pelas entidades, regras de negócio e persistência dos dados, incluindo jogadores, partidas, participações e ratings.
 
-O escopo inicial contempla:
+**View:** responsável pela apresentação das telas, menus, tabuleiro, mensagens e demais elementos da interface.
 
-- Partidas entre dois jogadores.
-- Tabuleiro de três linhas por três colunas.
-- Utilização de bolhas coloridas como peças.
-- Alternância automática de jogadas.
-- Identificação de vitória e empate.
-- Possibilidade de reiniciar a partida.
-- Modo multiplayer local.
-- Modo multiplayer online.
-- Interface responsiva.
+**Controller:** responsável por receber requisições, validar informações e coordenar as operações entre a interface e as regras de negócio.
 
-Não estão previstos inicialmente sistemas de ranking, loja virtual, chat, cadastro obrigatório de usuários ou partidas com mais de dois participantes.
+A arquitetura deverá facilitar a manutenção, os testes e futuras ampliações.
 
-## 6. Plataformas e Distribuição
+# 5. Planejamento das etapas de desenvolvimento
 
-O projeto será desenvolvido considerando três possibilidades de acesso:
+## Etapa 1 — Revisão e definição do escopo
 
-- Computadores por meio de navegadores web.
-- Dispositivos Android por meio de navegadores web.
-- Dispositivos Android por meio de aplicativo instalado através de arquivo APK.
+- Revisar o projeto inicialmente planejado.
+- Simplificar os requisitos funcionais e não funcionais.
+- Definir as funcionalidades obrigatórias do MVP.
+- Registrar as funcionalidades adiadas para versões futuras.
 
-Inicialmente, não está prevista a publicação do aplicativo na Google Play Store.
+## Etapa 2 — Modelagem e documentação
 
-## 7. Tecnologias Previstas
+- Elaborar o diagrama de classes UML.
+- Elaborar o diagrama de casos de uso.
+- Elaborar os diagramas de sequência e atividades.
+- Desenvolver o modelo conceitual do banco de dados.
+- Desenvolver o modelo lógico normalizado.
+- Elaborar o diagrama de classes de persistência.
+- Criar o dicionário de dados.
+- Definir as telas, navegação e elementos de IHC.
+- Elaborar o protótipo da interface.
 
-As tecnologias abaixo representam possibilidades iniciais, sujeitas à avaliação de viabilidade e compatibilidade com os requisitos do projeto.
+## Etapa 3 — Preparação do ambiente
 
-- **HTML:** estrutura da interface.
-- **CSS:** estilização e apresentação visual.
-- **JavaScript:** lógica e interatividade do jogo.
-- **Phaser:** possibilidade de utilização como framework para desenvolvimento do jogo.
-- **Capacitor:** possibilidade de empacotamento da aplicação web para Android.
-- **WebRTC:** possibilidade de utilização na comunicação P2P.
-- **Git e GitHub:** controle de versão e disponibilização do código-fonte.
+- Criar o projeto Java utilizando Spring Boot.
+- Configurar as dependências necessárias.
+- Organizar a estrutura MVC.
+- Configurar a conexão com SQLite.
+- Preparar o ambiente de testes com JUnit.
+- Organizar os arquivos e diretórios no GitHub.
 
-A linguagem do back-end e o sistema gerenciador de banco de dados serão definidos posteriormente, considerando as exigências acadêmicas e as necessidades da aplicação.
+## Etapa 4 — Desenvolvimento do sistema
 
-## 8. Segurança e Comunicação
+- Implementar as entidades e os relacionamentos do banco.
+- Desenvolver cadastro, login e logout.
+- Desenvolver o perfil básico dos jogadores.
+- Implementar o tabuleiro e as regras do jogo.
+- Desenvolver a alternância de turnos.
+- Implementar a identificação de vitórias e empates.
+- Implementar o registro persistente das partidas.
+- Desenvolver o cálculo do rating pelo Glicko original.
+- Implementar as ligas e a classificação global.
+- Desenvolver a interface e o feedback visual.
 
-A modalidade online deverá considerar mecanismos de segurança para proteger a comunicação entre os participantes.
+## Etapa 5 — Testes e validação
 
-Serão avaliados recursos de criptografia, validação de mensagens, controle de turnos e verificação da legitimidade das jogadas.
+- Criar testes automatizados das principais regras de negócio.
+- Testar cadastro e autenticação.
+- Verificar a persistência dos dados.
+- Testar jogadas, vitórias e empates.
+- Validar os cálculos de rating.
+- Verificar a classificação global.
+- Disponibilizar a aplicação para avaliação de cinco colegas ou usuários.
+- Registrar sugestões, falhas e problemas identificados.
+- Aplicar as correções pertinentes.
 
-A utilização de comunicação P2P não elimina todos os riscos de segurança. Portanto, deverão ser considerados mecanismos para reduzir possibilidades de manipulação de partidas e comportamentos indevidos dos clientes.
+## Etapa 6 — Documentação e entrega
 
-## 9. Considerações Finais
+- Revisar a documentação técnica.
+- Atualizar o repositório GitHub.
+- Elaborar as instruções de utilização.
+- Organizar os registros das avaliações individuais.
+- Elaborar o laudo de qualidade.
+- Registrar as funcionalidades não testadas e suas justificativas.
+- Produzir os vídeos demonstrativos solicitados.
+- Revisar os materiais antes da entrega final.
 
-O Bubbles será desenvolvido de maneira incremental, com revisão de requisitos, modelagem, implementação e testes.
+# 6. Funcionalidades futuras
 
-Este planejamento representa a proposta inicial do projeto e poderá ser atualizado conforme as necessidades identificadas durante o desenvolvimento e as orientações acadêmicas do PIT II.
+Em razão da simplificação do escopo, algumas funcionalidades anteriormente previstas foram adiadas para versões posteriores:
+
+- Partidas entre dispositivos pela mesma rede Wi-Fi.
+- Multiplayer online por comunicação P2P.
+- Matchmaking automático.
+- Descoberta automática de dispositivos.
+- Autenticação offline e sincronização de credenciais.
+- Avatares personalizados e sincronizados.
+- Aplicativo Android distribuído por APK.
+- Recursos adicionais de interação entre jogadores.
+
+Essas funcionalidades não fazem parte da implementação inicial do PIT II.
+
+# 7. Critérios de conclusão
+
+O MVP será considerado concluído quando apresentar:
+
+- Cadastro e autenticação funcionais.
+- Jogo da velha funcional para dois jogadores no mesmo dispositivo.
+- Interface com identidade visual do Bubbles.
+- Banco de dados relacional funcionando.
+- Registro persistente das partidas.
+- Rating e classificação global.
+- Arquitetura MVC organizada.
+- Testes automatizados executados.
+- Documentação técnica correspondente à implementação.
+- Avaliações dos cinco participantes e laudo de qualidade, conforme as exigências da atividade.
+
+# 8. Considerações finais
+
+O planejamento revisado estabelece uma abordagem simplificada para o desenvolvimento do Bubbles, priorizando a implementação das funcionalidades essenciais e o cumprimento dos requisitos técnicos do PIT II.
+
+A redução do escopo busca tornar o desenvolvimento mais viável dentro do prazo acadêmico, evitando complexidade desnecessária e permitindo maior atenção à qualidade da solução.
+
+As etapas serão executadas progressivamente, mantendo a documentação, os modelos, o código-fonte e os testes coerentes entre si.
+
+As funcionalidades adiadas permanecerão registradas como possibilidades de evolução futura, sem serem consideradas entregas implementadas na versão inicial.
