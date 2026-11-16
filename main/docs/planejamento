@@ -1,0 +1,86 @@
+# Bubbles — Planejamento do Projeto
+
+**Versão:** 1.0 — Proposta inicial
+
+## 1. Identificação
+
+**Nome:** Bubbles
+
+**Tipo:** Jogo digital de estratégia casual.
+
+**Gênero:** Jogo da velha.
+
+**Plataformas:** Navegador web e aplicativo Android distribuído por APK.
+
+**Modos de jogo:** Local e online.
+
+**Público-alvo:** Pessoas interessadas em jogos casuais e partidas rápidas entre amigos.
+
+## 2. Descrição do projeto
+
+O Bubbles será um jogo da velha desenvolvido para navegadores e dispositivos Android. A aplicação permitirá partidas entre dois jogadores, oferecendo um modo local, no qual os participantes compartilham o mesmo dispositivo, e um modo online, com comunicação direta entre os dispositivos por meio da tecnologia peer-to-peer (P2P).
+
+O jogo terá uma identidade visual fofa, colorida e divertida, substituindo os tradicionais símbolos X e O por bolhas de diferentes cores. A interface será desenvolvida para proporcionar uma experiência intuitiva e adaptável a diferentes tamanhos de tela.
+
+## 3. Objetivo geral
+
+Desenvolver um jogo da velha multiplataforma, com modos de partida local e online, comunicação peer-to-peer e interface visual intuitiva, proporcionando uma experiência agradável aos jogadores.
+
+## 4. Objetivos específicos
+
+- Implementar o tabuleiro e as regras do jogo da velha.
+- Desenvolver os modos de partida local e online.
+- Substituir os símbolos tradicionais por bolhas de diferentes cores.
+- Implementar a alternância de turnos e a identificação de vitória e empate.
+- Desenvolver uma interface responsiva para computadores e dispositivos móveis.
+- Implementar comunicação peer-to-peer para partidas online.
+- Aplicar mecanismos de segurança e validação das mensagens e jogadas.
+- Disponibilizar uma versão web e um aplicativo Android em formato APK.
+- Realizar testes funcionais e avaliar a usabilidade da aplicação.
+
+## 5. Escopo inicial
+
+O projeto contempla:
+
+- Partidas locais para dois jogadores.
+- Partidas online para dois jogadores.
+- Tabuleiro com nove casas.
+- Peças representadas por bolhas coloridas.
+- Alternância automática de turnos.
+- Identificação de vitória e empate.
+- Possibilidade de reiniciar partidas.
+- Interface adaptável a computadores e celulares.
+- Indicação do estado da partida e da conexão online.
+
+Não fazem parte do escopo inicial sistemas de ranking global, amizades, chat, loja de itens, cadastro obrigatório de usuários ou partidas com mais de dois jogadores.
+
+## 6. Plataformas e distribuição
+
+O Bubbles será disponibilizado de duas formas:
+
+- Aplicação web acessível pelo navegador em computadores e dispositivos Android.
+- Aplicativo Android distribuído por arquivo APK, sem publicação inicial na Google Play.
+
+## 7. Tecnologias previstas
+
+| Componente | Tecnologia |
+|---|---|
+| Front-end | HTML, CSS e JavaScript |
+| Motor gráfico | Phaser |
+| Aplicativo Android | Capacitor (previsto) |
+| Comunicação P2P | WebRTC |
+| Back-end | A definir |
+| Banco de dados | A definir |
+| Versionamento | Git e GitHub |
+
+As tecnologias de back-end e banco de dados serão definidas durante o planejamento da arquitetura, considerando os requisitos acadêmicos e técnicos do projeto.
+
+## 8. Segurança
+
+A comunicação online utilizará os mecanismos de segurança disponibilizados pelo WebRTC, incluindo criptografia da conexão. Também serão implementadas validações das jogadas, dos turnos e das mensagens recebidas, buscando reduzir possibilidades de manipulação e comportamentos indevidos.
+
+## 9. Considerações
+
+Este documento representa a proposta inicial do Bubbles. O escopo, os requisitos e as decisões técnicas poderão ser revisados durante o desenvolvimento, conforme as necessidades identificadas e os critérios estabelecidos para o PIT II.
+
+A utilização desta proposta como substituição do projeto desenvolvido no PIT I depende de confirmação do tutor responsável.
