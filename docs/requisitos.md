@@ -1,22 +1,24 @@
 # BUBBLES
 ## Especificação de Requisitos de Software
 
-**Versão:** 0.2 
-**Projeto:** Bubbles — Jogo da Velha Multijogador
+**Versão:** 0.3  
+**Projeto:** Bubbles — Jogo da Velha Multijogador  
 **Curso:** Engenharia de Software — PIT II  
-**Status:** Especificação consolidada para desenvolvimento
+**Status:** Especificação revisada para desenvolvimento
 
 ---
 
 # 1. Visão geral do projeto
 
-O Bubbles é um jogo da velha multiplayer com identidade visual fofa, colorida e divertida, desenvolvido para proporcionar partidas entre dois jogadores.
+O Bubbles é um jogo da velha multijogador com identidade visual fofa, colorida e divertida, desenvolvido para proporcionar partidas entre dois jogadores.
 
-O jogo terá versões para navegadores de computadores, navegadores de dispositivos Android e aplicativo Android distribuído inicialmente por APK.
+A solução terá como plataforma principal o navegador, com compatibilidade prevista para computadores e dispositivos Android. Também está prevista a disponibilização de um aplicativo Android por meio de APK.
 
-O sistema permitirá partidas locais entre dispositivos conectados à mesma rede Wi-Fi, sem necessidade de internet, e partidas online com busca automática de adversários.
+O sistema permitirá partidas locais entre dispositivos conectados à mesma rede Wi-Fi e partidas online com busca automática de adversários.
 
-O projeto também contará com cadastro de usuários, perfis individuais, avatares, sistema de rating competitivo e ligas determinadas pela pontuação dos jogadores.
+Além do jogo, contará com cadastro e autenticação de usuários, perfis individuais, avatares, histórico de partidas, classificação competitiva, sistema de rating e ligas.
+
+A aplicação será desenvolvida com front-end em HTML, CSS e JavaScript, back-end em Java, arquitetura MVC e banco de dados relacional.
 
 # 2. Requisitos funcionais (RF)
 
@@ -24,217 +26,175 @@ O projeto também contará com cadastro de usuários, perfis individuais, avatar
 
 **RF01.** O sistema deverá disponibilizar um jogo da velha com tabuleiro de nove posições, organizado em três linhas e três colunas.
 
-**RF02.** O sistema deverá permitir partidas entre dois jogadores.
+**RF02.** O sistema deverá permitir partidas entre dois jogadores, alternando automaticamente os turnos.
 
-**RF03.** O sistema deverá permitir que cada jogador marque uma posição livre do tabuleiro durante seu turno.
+**RF03.** O sistema deverá permitir que cada jogador marque uma posição livre, impedindo a seleção de posições já ocupadas.
 
-**RF04.** O sistema deverá impedir que uma posição já ocupada seja selecionada novamente.
+**RF04.** O sistema deverá identificar automaticamente vitórias por combinações horizontais, verticais ou diagonais e empates naturais quando todas as posições estiverem preenchidas sem vencedor.
 
-**RF05.** O sistema deverá alternar automaticamente os turnos entre os jogadores.
+**RF05.** O sistema deverá utilizar bolhas coloridas como peças, substituindo os tradicionais símbolos X e O.
 
-**RF06.** O sistema deverá identificar a vitória quando um jogador completar uma sequência de três posições na horizontal, vertical ou diagonal.
+**RF06.** O sistema deverá atribuir cores diferentes aos jogadores no início de cada partida, mantendo sua identificação visual até o encerramento.
 
-**RF07.** O sistema deverá identificar automaticamente o empate natural quando todas as posições estiverem preenchidas sem que exista um vencedor.
-
-**RF08.** O sistema deverá utilizar bolhas coloridas como peças do jogo, substituindo os tradicionais símbolos X e O.
-
-**RF09.** O sistema deverá atribuir automaticamente uma cor diferente para cada jogador no início de cada partida, mantendo a associação durante toda a partida.
-
-**RF10.** O sistema deverá selecionar as cores dos jogadores a partir de uma paleta própria, permitindo variações entre partidas diferentes.
-
-**RF11.** O sistema deverá apresentar o resultado da partida em uma sobreposição (overlay) sobre o próprio tabuleiro, identificando o vencedor pelo nickname ou exibindo a mensagem de empate.
+**RF07.** O sistema deverá apresentar o resultado da partida em uma sobreposição sobre o tabuleiro, identificando o vencedor pelo nickname ou informando o empate.
 
 ## 2.2. Cadastro e autenticação
 
-**RF12.** O sistema deverá permitir o cadastro de novos usuários mediante nickname e senha, sendo o endereço de e-mail opcional.
+**RF08.** O sistema deverá permitir o cadastro de usuários mediante nickname e senha, sendo o endereço de e-mail opcional.
 
-**RF13.** O sistema deverá impedir o cadastro de nicknames duplicados.
+**RF09.** O sistema deverá impedir nicknames duplicados e permitir o login por nickname e senha.
 
-**RF14.** O sistema deverá permitir o login utilizando nickname e senha.
+**RF10.** O sistema deverá exigir autenticação para acessar as funcionalidades do jogo, incluindo as modalidades local e online.
 
-**RF15.** O sistema deverá exigir autenticação para acessar as funcionalidades do jogo, incluindo as modalidades local e online.
+**RF11.** O sistema deverá disponibilizar a funcionalidade de logout.
 
-**RF16.** O sistema deverá permitir que o usuário encerre sua sessão por meio da funcionalidade de logout.
-
-**RF17.** O sistema deverá armazenar as senhas utilizando mecanismos seguros de hash, sem armazená-las em texto puro.
-
-**RF18.** O sistema deverá validar as credenciais dos usuários e controlar o acesso às funcionalidades conforme o estado de autenticação.
+**RF12.** O sistema deverá armazenar as senhas utilizando hash seguro, sem mantê-las em texto puro.
 
 ## 2.3. Perfil e avatar
 
-**RF19.** O sistema deverá disponibilizar um perfil individual para cada usuário.
+**RF13.** O sistema deverá disponibilizar um perfil individual contendo nickname, avatar, rating competitivo e liga atual.
 
-**RF20.** O perfil deverá apresentar nickname, rating competitivo e liga atual do jogador.
+**RF14.** O sistema deverá permitir selecionar e alterar o avatar utilizando imagens dos arquivos do computador ou da galeria do dispositivo.
 
-**RF21.** O sistema deverá permitir que o usuário selecione uma imagem da galeria do dispositivo ou dos arquivos do computador para utilizar como avatar.
+**RF15.** O sistema deverá sincronizar o avatar com a conta do usuário quando houver conexão com a internet.
 
-**RF22.** O sistema deverá permitir que o usuário altere seu avatar posteriormente.
-
-**RF23.** O sistema deverá sincronizar o avatar com a conta do usuário, permitindo sua visualização em outros dispositivos quando houver conexão com a internet.
-
-**RF24.** O sistema deverá apresentar o avatar e o nickname dos jogadores durante as partidas, quando disponíveis.
+**RF16.** O sistema deverá apresentar o avatar e o nickname dos jogadores durante as partidas, quando disponíveis.
 
 ## 2.4. Partidas locais
 
-**RF25.** O sistema deverá permitir partidas entre dois dispositivos conectados à mesma rede Wi-Fi, sem exigir conexão com a internet.
+**RF17.** O sistema deverá permitir partidas entre dois dispositivos conectados à mesma rede Wi-Fi, sem exigir conexão com a internet.
 
-**RF26.** O sistema deverá permitir o acesso offline às contas previamente autenticadas nos respectivos dispositivos.
+**RF18.** O sistema deverá permitir o acesso offline às contas previamente autenticadas nos respectivos dispositivos.
 
-**RF27.** O sistema deverá procurar automaticamente outros dispositivos disponíveis na mesma rede Wi-Fi para iniciar uma partida local, sem exigir que os jogadores informem códigos ou convites manualmente.
+**RF19.** O sistema deverá procurar automaticamente dispositivos disponíveis na mesma rede Wi-Fi, sem exigir códigos ou convites manuais.
 
 ## 2.5. Partidas online e matchmaking
 
-**RF28.** O sistema deverá permitir partidas online entre jogadores conectados à internet.
+**RF20.** O sistema deverá permitir partidas online entre jogadores conectados à internet.
 
-**RF29.** O sistema deverá disponibilizar busca automática de adversários, sem exigir convites ou códigos de partida.
+**RF21.** O sistema deverá disponibilizar busca automática de adversários, sem exigir convites ou códigos de partida.
 
-**RF30.** O sistema deverá priorizar adversários com ratings semelhantes durante o processo de matchmaking.
+**RF22.** O sistema deverá priorizar adversários com ratings semelhantes, ampliando progressivamente a faixa de busca quando necessário.
 
-**RF31.** Caso não encontre adversários com ratings próximos, o sistema deverá ampliar progressivamente a faixa de busca, selecionando, quando necessário, o adversário disponível com rating mais próximo.
+**RF23.** Caso não encontre adversários com ratings próximos, o sistema deverá selecionar o adversário disponível com rating mais próximo.
 
-**RF32.** O sistema deverá informar aos jogadores quando um adversário for encontrado e uma partida estiver sendo estabelecida.
+**RF24.** O sistema deverá informar quando um adversário for encontrado e a partida estiver sendo estabelecida.
 
-**RF33.** O sistema deverá utilizar comunicação entre os dispositivos por meio de uma arquitetura P2P para as partidas online, com os mecanismos auxiliares necessários para estabelecimento e manutenção da conexão.
+**RF25.** O sistema deverá utilizar comunicação P2P nas partidas online, com os mecanismos auxiliares necessários para estabelecimento e manutenção da conexão.
 
 ## 2.6. Empates, desistência e revanche
 
-**RF34.** O sistema deverá permitir que qualquer jogador solicite um empate durante uma partida.
+**RF26.** O sistema deverá permitir que qualquer jogador solicite um empate durante uma partida.
 
-**RF35.** O sistema deverá apresentar ao adversário a possibilidade de aceitar ou recusar o pedido de empate, mantendo a partida em andamento enquanto aguarda a resposta.
+**RF27.** O adversário deverá poder aceitar ou recusar o pedido, sem que a partida seja pausada enquanto aguarda a resposta.
 
-**RF36.** Caso o pedido de empate seja aceito, o sistema deverá encerrar a partida como empate negociado, sem alterar o rating de nenhum dos jogadores.
+**RF28.** Caso o empate seja aceito, a partida deverá ser encerrada sem alterações nos ratings dos jogadores. Caso seja recusado, deverá continuar normalmente.
 
-**RF37.** Caso o pedido de empate seja recusado, o sistema deverá continuar a partida normalmente.
+**RF29.** O sistema deverá permitir a desistência mediante confirmação do jogador, atribuindo derrota a quem desistiu e vitória ao adversário.
 
-**RF38.** O sistema deverá permitir que qualquer jogador solicite desistência durante uma partida, apresentando uma confirmação antes de efetivar a ação.
+**RF30.** O sistema deverá permitir a solicitação de revanche, iniciando uma nova partida somente após a aceitação do adversário.
 
-**RF39.** Caso a desistência seja confirmada, o sistema deverá encerrar a partida, atribuindo derrota ao jogador que desistiu e vitória ao adversário.
+**RF31.** Caso a revanche seja recusada, cada jogador deverá poder escolher independentemente entre procurar outro adversário ou retornar ao menu principal.
 
-**RF40.** O sistema deverá permitir que o vencedor solicite uma revanche após o encerramento da partida.
-
-**RF41.** O sistema deverá iniciar uma nova partida somente após o adversário aceitar a solicitação de revanche.
-
-**RF42.** Caso a revanche seja recusada, o sistema deverá disponibilizar individualmente aos jogadores as opções de procurar automaticamente um novo adversário ou retornar ao menu principal.
-
-**RF43.** A decisão de um jogador após a recusa da revanche não deverá obrigar o outro a tomar a mesma decisão.
-
-**RF44.** O sistema deverá preservar o resultado da partida anterior, impedindo que solicitações repetidas de revanche provoquem partidas duplicadas ou alterem resultados já registrados.
+**RF32.** O sistema deverá preservar o resultado anterior, impedindo que solicitações repetidas de revanche provoquem partidas duplicadas ou alterem resultados já registrados.
 
 ## 2.7. Desconexões e reconexões
 
-**RF45.** O sistema deverá identificar a desconexão de um jogador durante uma partida local ou online.
+**RF33.** O sistema deverá identificar a desconexão de um jogador durante uma partida local ou online.
 
-**RF46.** Ao identificar a desconexão, o sistema deverá pausar a partida e iniciar um período de tolerância de 10 segundos para a reconexão.
+**RF34.** Ao identificar a desconexão, deverá pausar a partida e conceder 10 segundos para a reconexão.
 
-**RF47.** Caso o jogador reconecte dentro do período estabelecido, o sistema deverá restaurar o estado anterior da partida, permitindo sua continuidade.
+**RF35.** Caso o jogador reconecte dentro do período estabelecido, o sistema deverá restaurar o estado anterior da partida.
 
-**RF48.** Caso o jogador não reconecte dentro dos 10 segundos, o sistema deverá encerrar a partida, atribuindo derrota ao jogador desconectado e vitória ao adversário.
+**RF36.** Caso não ocorra reconexão dentro dos 10 segundos, o sistema deverá encerrar a partida, atribuindo derrota ao jogador desconectado e vitória ao adversário.
 
-**RF49.** Em partidas online, caso ocorra uma falha geral do servidor ou da infraestrutura responsável pela partida, o sistema não deverá atribuir vitória ou derrota aos jogadores nem alterar seus ratings.
+**RF37.** Em caso de falha geral do servidor ou da infraestrutura online, o sistema não deverá atribuir vitória ou derrota nem alterar os ratings.
 
 ## 2.8. Rating e ligas competitivas
 
-**RF50.** O sistema deverá disponibilizar um rating numérico individual e global para cada usuário.
+**RF38.** O sistema deverá disponibilizar um rating numérico individual e global para cada usuário, compartilhado entre os dispositivos conectados à conta.
 
-**RF51.** Todos os jogadores deverão iniciar com rating de 100 pontos.
+**RF39.** Todos os jogadores deverão iniciar com rating de 100 pontos.
 
-**RF52.** O sistema deverá utilizar o algoritmo Glicko original como referência para calcular as alterações de rating após partidas online competitivas válidas.
+**RF40.** O sistema deverá utilizar o algoritmo Glicko original para calcular as alterações de rating após partidas online competitivas válidas.
 
-**RF53.** O cálculo do rating deverá considerar a pontuação dos jogadores e o desvio do rating (RD), levando em conta a incerteza associada à classificação de cada jogador.
+**RF41.** O cálculo deverá considerar o resultado das partidas, a diferença entre os ratings dos adversários e o desvio do rating (RD).
 
-**RF54.** O sistema deverá aumentar progressivamente o RD durante períodos de inatividade, sem descontar automaticamente pontos do rating do jogador.
+**RF42.** O sistema deverá aumentar progressivamente o RD durante períodos de inatividade, sem descontar automaticamente pontos do rating.
 
-**RF55.** O sistema deverá atualizar o rating conforme os resultados das partidas: vitórias, derrotas e empates naturais.
+**RF43.** O sistema deverá atualizar o rating após vitórias, derrotas e empates naturais em partidas online competitivas válidas.
 
-**RF56.** O sistema deverá considerar a diferença entre os ratings dos adversários no cálculo das alterações de pontuação.
+**RF44.** Empates negociados aceitos não deverão alterar os ratings.
 
-**RF57.** Empates negociados, aceitos por ambos os jogadores, não deverão provocar alterações nos ratings.
+**RF45.** Partidas locais não deverão alterar o rating dos jogadores.
 
-**RF58.** Partidas locais não deverão alterar o rating dos jogadores, independentemente do resultado.
+**RF46.** Desistências e desconexões individuais que resultem em derrota deverão seguir as regras de atualização de rating das partidas online competitivas.
 
-**RF59.** Desistências em partidas online competitivas deverão ser consideradas derrotas para o jogador que desistiu e vitórias para o adversário, com atualização do rating conforme o Glicko.
+**RF47.** O sistema deverá atualizar automaticamente a liga do jogador conforme seu rating, permitindo progressão e rebaixamento.
 
-**RF60.** Desconexões individuais que resultem em derrota após o período de tolerância deverão seguir as regras de atualização do rating aplicáveis às partidas online competitivas.
+## 2.9. Persistência e classificação
 
-**RF61.** O sistema deverá atualizar automaticamente a liga do jogador conforme seu rating.
+**RF48.** O sistema deverá utilizar um banco de dados relacional para armazenar persistentemente as informações da aplicação.
 
-**RF62.** O sistema deverá permitir a progressão e o rebaixamento entre ligas conforme as alterações do rating.
+**RF49.** O sistema deverá armazenar os dados de cadastro dos jogadores, incluindo nickname, hash da senha e informações opcionais do perfil.
+
+**RF50.** O sistema deverá registrar o histórico das partidas, incluindo modalidade, participantes, resultado, datas e informações necessárias à identificação da partida.
+
+**RF51.** O sistema deverá armazenar os ratings dos jogadores e seus respectivos dados necessários ao cálculo e à atualização do Glicko.
+
+**RF52.** O sistema deverá disponibilizar uma tabela de classificação (leaderboard), ordenada pelo rating global dos jogadores.
+
+**RF53.** O sistema deverá manter os registros das partidas e dos ratings mesmo após o encerramento da sessão ou reinicialização da aplicação.
+
+**RF54.** O sistema deverá preservar a integridade dos registros, evitando duplicidade de partidas e alterações indevidas nos resultados.
+
+**RF55.** O sistema deverá utilizar operações de persistência com validação de dados e relacionamentos entre as entidades.
 
 # 3. Regras de negócio (RN)
 
-**RN01.** Cada partida deverá envolver exatamente dois jogadores.
+**RN01.** Cada partida deverá envolver exatamente dois jogadores, com uma jogada por turno.
 
-**RN02.** Cada jogador deverá realizar uma jogada por turno.
+**RN02.** Uma posição ocupada não poderá receber outra marcação durante a mesma partida.
 
-**RN03.** Uma posição ocupada não poderá receber outra marcação durante a mesma partida.
+**RN03.** A partida deverá terminar após uma vitória, empate natural, empate negociado aceito ou desistência confirmada.
 
-**RN04.** A partida deverá terminar quando houver uma combinação vencedora, empate natural, empate negociado aceito ou desistência confirmada.
+**RN04.** O nickname deverá ser único no sistema e o e-mail será opcional.
 
-**RN05.** Cada jogador deverá receber uma cor diferente no início de cada partida, mantendo sua identificação visual até o encerramento.
+**RN05.** O cadastro de novas contas exigirá conexão com a internet.
 
-**RN06.** O nickname deverá ser único no sistema.
+**RN06.** Uma conta previamente autenticada poderá ser utilizada offline no mesmo dispositivo, desde que suas credenciais locais estejam protegidas. O primeiro acesso em outro dispositivo exigirá conexão com a internet.
 
-**RN07.** O endereço de e-mail será opcional no cadastro e poderá ser utilizado futuramente para recuperação de senha.
+**RN07.** Alterações de senha realizadas em outro dispositivo deverão ser sincronizadas quando houver conexão. Até a sincronização, o dispositivo offline poderá utilizar temporariamente a credencial anteriormente validada.
 
-**RN08.** A senha deverá ser armazenada em formato de hash seguro, nunca em texto puro.
+**RN08.** Partidas locais poderão ocorrer sem internet, desde que os dispositivos estejam na mesma rede Wi-Fi e os jogadores tenham sido previamente autenticados.
 
-**RN09.** O cadastro de uma nova conta exigirá conexão com a internet.
+**RN09.** Partidas online exigirão conexão com a internet.
 
-**RN10.** Uma conta previamente autenticada em determinado dispositivo poderá ser utilizada offline nesse mesmo dispositivo, desde que suas credenciais locais estejam protegidas.
+**RN10.** O pedido de empate não deverá interromper a partida. Somente será válido como empate negociado após a aceitação expressa do adversário.
 
-**RN11.** Um dispositivo que nunca tenha autenticado determinada conta precisará de conexão com a internet para realizar seu primeiro acesso.
+**RN11.** A desistência voluntária somente produzirá efeito após confirmação.
 
-**RN12.** Caso a senha de uma conta seja alterada em outro dispositivo, o dispositivo que permanecer offline poderá continuar utilizando temporariamente a credencial anteriormente validada, até que ocorra a sincronização com o serviço de autenticação.
+**RN12.** A revanche dependerá da aceitação do adversário. Caso seja recusada, cada jogador poderá decidir independentemente como prosseguir.
 
-**RN13.** Após a sincronização das credenciais, o sistema deverá exigir a senha atualizada nos próximos processos de autenticação.
+**RN13.** A desconexão individual deverá seguir o procedimento de pausa, tolerância de 10 segundos e encerramento por derrota caso não ocorra reconexão.
 
-**RN14.** Partidas locais poderão ocorrer sem internet, desde que os dispositivos estejam conectados à mesma rede Wi-Fi e os jogadores tenham sido previamente autenticados.
+**RN14.** Falhas gerais da infraestrutura não deverão produzir resultados competitivos nem alterações de rating.
 
-**RN15.** Partidas online exigirão conexão com a internet.
+**RN15.** Somente partidas online competitivas válidas poderão modificar o rating.
 
-**RN16.** O matchmaking deverá priorizar jogadores com ratings próximos, ampliando progressivamente a faixa de busca quando necessário.
+**RN16.** O rating inicial será de 100 pontos para todos os jogadores e será único e global.
 
-**RN17.** O pedido de empate não deverá interromper ou pausar a partida enquanto aguarda a resposta do adversário.
+**RN17.** O sistema de rating deverá utilizar o Glicko original, considerando rating e RD.
 
-**RN18.** Um empate negociado somente será válido quando o adversário aceitar expressamente a solicitação.
+**RN18.** Empates naturais deverão ser considerados resultados empatados pelo Glicko. Empates negociados aceitos não modificarão os ratings.
 
-**RN19.** Um empate negociado aceito não deverá alterar o rating de nenhum dos jogadores.
+**RN19.** As partidas locais não poderão interferir no rating ou na liga competitiva.
 
-**RN20.** Um empate natural deverá ser considerado resultado empatado para o cálculo do rating pelo Glicko.
+**RN20.** As ligas serão determinadas exclusivamente pelo rating individual, independentemente da quantidade de jogadores ativos.
 
-**RN21.** A desistência voluntária somente deverá produzir efeito após a confirmação do jogador que solicitou a ação.
+**RN21.** O histórico das partidas deverá ser persistido no banco de dados, mesmo que não seja apresentado no perfil individual.
 
-**RN22.** A desistência confirmada deverá ser considerada derrota para quem desistiu e vitória para o adversário.
-
-**RN23.** A desistência poderá ocorrer tanto em partidas locais quanto online, mas somente partidas online competitivas poderão alterar o rating.
-
-**RN24.** A solicitação de revanche dependerá da aceitação do adversário.
-
-**RN25.** Caso a revanche seja recusada, cada jogador poderá escolher independentemente entre procurar outro adversário ou retornar ao menu.
-
-**RN26.** A desconexão individual deverá seguir o mesmo procedimento nas partidas locais e online: pausa, tolerância de 10 segundos e encerramento por derrota caso não ocorra reconexão.
-
-**RN27.** Se o jogador reconectar dentro dos 10 segundos, a partida deverá continuar a partir do estado anterior à desconexão.
-
-**RN28.** Em partidas online competitivas, uma desconexão individual que ultrapasse o período de tolerância deverá resultar em derrota para o jogador desconectado e vitória para o adversário.
-
-**RN29.** Falhas gerais da infraestrutura responsável pela partida não deverão produzir resultados competitivos ou alterações de rating.
-
-**RN30.** Somente partidas online competitivas válidas e concluídas poderão modificar o rating.
-
-**RN31.** O rating inicial de todos os jogadores será de 100 pontos.
-
-**RN32.** O rating será único e global, compartilhado entre o navegador do computador, navegador Android e aplicativo Android.
-
-**RN33.** As ligas serão determinadas exclusivamente pelo rating individual do jogador, sem depender da quantidade de jogadores ativos.
-
-**RN34.** O sistema de rating deverá utilizar o Glicko original, considerando rating e RD.
-
-**RN35.** O RD deverá aumentar progressivamente durante a inatividade, sem redução automática do rating numérico.
-
-**RN36.** As ligas poderão ser alteradas automaticamente quando o rating ultrapassar ou deixar de alcançar os limites estabelecidos.
-
-**RN37.** As partidas locais não poderão interferir no rating ou na liga competitiva do jogador.
+**RN22.** A classificação deverá refletir os ratings persistidos dos jogadores, sem depender de dados armazenados exclusivamente no navegador.
 
 # 4. Classificação competitiva
 
@@ -252,91 +212,130 @@ Todos os jogadores iniciarão na liga Bronze, com 100 pontos.
 
 A progressão e o rebaixamento ocorrerão automaticamente conforme as alterações do rating.
 
-As faixas representam uma configuração inicial própria do Bubbles e poderão ser ajustadas futuramente com base nos resultados observados durante a utilização do jogo.
+As faixas são uma configuração própria do Bubbles e poderão ser ajustadas futuramente.
 
 # 5. Requisitos não funcionais (RNF)
 
-**RNF01 — Usabilidade:** a interface deverá ser simples, intuitiva, agradável e adequada à identidade visual fofa e colorida do Bubbles.
+**RNF01 — Usabilidade:** a interface deverá ser simples, intuitiva, agradável e adequada à identidade visual do Bubbles.
 
-**RNF02 — Consistência visual:** os elementos da interface deverão manter padrões visuais e comportamentais consistentes entre as telas.
+**RNF02 — IHC:** o sistema deverá apresentar menus claros, navegação intuitiva, telas organizadas e mensagens compreensíveis de sucesso, erro e orientação.
 
-**RNF03 — Feedback:** o sistema deverá fornecer respostas visuais claras para ações dos jogadores, incluindo jogadas, erros, vitórias, empates, desconexões e reconexões.
+**RNF03 — Feedback visual:** a interface deverá informar o estado da partida, incluindo placar, turnos, resultados, desconexões e reconexões, além de indicadores de tempo quando aplicáveis.
 
-**RNF04 — Compatibilidade:** a solução deverá funcionar em navegadores de computadores e dispositivos Android, além de disponibilizar um aplicativo Android distribuído por APK.
+**RNF04 — Consistência:** os elementos visuais e comportamentais deverão manter padrões consistentes entre as telas.
 
-**RNF05 — Segurança de autenticação:** as senhas deverão ser protegidas por hash seguro, e os processos de autenticação deverão utilizar mecanismos apropriados de proteção.
+**RNF05 — Compatibilidade:** a aplicação deverá ser compatível com navegadores de computadores e dispositivos Android, além de prever a distribuição de aplicativo Android por APK.
 
-**RNF06 — Segurança da comunicação:** a transmissão de dados sensíveis deverá utilizar mecanismos de proteção criptográfica adequados à modalidade de conexão.
+**RNF06 — Segurança:** o sistema deverá proteger credenciais, validar requisições e impedir operações não autorizadas.
 
-**RNF07 — Validação:** o sistema deverá validar os dados recebidos, especialmente operações relacionadas a autenticação, jogadas, turnos, resultados e atualização de rating.
+**RNF07 — Segurança da comunicação:** dados sensíveis transmitidos pela internet deverão utilizar mecanismos adequados de proteção criptográfica.
 
-**RNF08 — Integridade:** o sistema deverá preservar a consistência dos estados das partidas e impedir que mensagens inválidas, repetidas ou incompatíveis provoquem alterações indevidas.
+**RNF08 — Integridade:** o sistema deverá preservar a consistência dos dados, partidas, resultados e ratings, evitando alterações indevidas.
 
-**RNF09 — Confiabilidade:** o sistema deverá tratar falhas de comunicação, desconexões e erros de processamento sem comprometer indevidamente os resultados das partidas.
+**RNF09 — Confiabilidade:** o sistema deverá tratar falhas de comunicação, desconexões e erros de processamento sem comprometer indevidamente os registros.
 
-**RNF10 — Manutenibilidade:** o código deverá ser organizado de forma a facilitar correções, atualizações e futuras ampliações.
+**RNF10 — Manutenibilidade:** o código deverá ser organizado em componentes que facilitem correções, testes e futuras ampliações.
 
-**RNF11 — Portabilidade:** a solução deverá permitir utilização nos ambientes de navegador e aplicativo Android previstos no projeto.
+**RNF11 — Eficiência:** as operações de interface, jogadas, consultas e gravações deverão apresentar tempos de resposta adequados à experiência de jogo.
 
-**RNF12 — Eficiência:** as operações de interface, jogadas e comunicação deverão apresentar tempos de resposta adequados à experiência de jogo.
+# 6. Arquitetura e tecnologias
 
-# 6. Restrições do projeto
+**ARQ01.** O front-end deverá utilizar HTML, CSS e JavaScript.
 
-**RE01.** O projeto deverá ser desenvolvido com custo zero durante o PIT II, utilizando ferramentas, serviços e recursos gratuitos.
+**ARQ02.** O back-end deverá utilizar Java, com Spring Boot como tecnologia de desenvolvimento.
+
+**ARQ03.** A aplicação deverá seguir a arquitetura MVC, organizando as responsabilidades em:
+
+- **Model:** entidades, regras de negócio e persistência dos dados.
+- **View:** interface apresentada ao usuário.
+- **Controller:** recebimento de requisições, validações e coordenação das operações.
+
+**ARQ04.** A aplicação deverá utilizar um banco de dados relacional, com SQLite como SGBD previsto para o projeto.
+
+**ARQ05.** O projeto deverá utilizar mecanismos de persistência que permitam o relacionamento entre jogadores, partidas, participações e ratings.
+
+**ARQ06.** Os testes automatizados deverão utilizar JUnit, contemplando as principais regras de negócio do sistema.
+
+**ARQ07.** O código-fonte deverá ser organizado e disponibilizado em repositório Git público no GitHub.
+
+# 7. Documentação e entregas técnicas
+
+**DOC01.** O projeto deverá apresentar os diagramas UML revisados, incluindo classes, casos de uso, sequência e atividades, conforme aplicável.
+
+**DOC02.** Deverá ser elaborado o diagrama de classes de persistência, representando as entidades, atributos e relacionamentos do banco de dados.
+
+**DOC03.** Deverão ser apresentados os modelos conceitual e lógico normalizado do banco de dados.
+
+**DOC04.** O projeto deverá apresentar a implementação e documentação do modelo físico do banco de dados.
+
+**DOC05.** Deverá ser elaborado um dicionário de dados contendo tabelas, campos, tipos, restrições e relacionamentos.
+
+**DOC06.** Deverão ser documentados os elementos de IHC, incluindo telas, navegação, mensagens e protótipo da interface.
+
+**DOC07.** O repositório deverá conter o código-fonte, arquivos necessários à execução, documentação e instruções de utilização.
+
+**DOC08.** O projeto deverá apresentar os testes automatizados e seus respectivos resultados.
+
+**DOC09.** A solução deverá ser disponibilizada para avaliação de cinco colegas ou usuários, com registro individual de suas opiniões, data, funcionalidades testadas, falhas identificadas e sugestões.
+
+**DOC10.** Deverá ser elaborado um laudo de qualidade contendo o que funcionou, problemas encontrados, correções realizadas, evidências e funcionalidades não testadas, com as respectivas justificativas.
+
+**DOC11.** Deverão ser produzidos os vídeos demonstrativos solicitados na atividade, contemplando a solução e as melhorias realizadas após as avaliações.
+
+# 8. Restrições do projeto
+
+**RE01.** O projeto deverá ser desenvolvido com custo zero durante o PIT II, utilizando ferramentas e serviços gratuitos.
 
 **RE02.** O código-fonte deverá ser disponibilizado em repositório público no GitHub.
 
 **RE03.** O front-end deverá utilizar HTML, CSS e JavaScript.
 
-**RE04.** O back-end deverá utilizar uma das linguagens ou tecnologias admitidas na situação-problema: Java, PHP, C#, .NET ou Python.
+**RE04.** O back-end deverá utilizar Java e seguir a arquitetura MVC.
 
-**RE05.** O desenvolvimento do back-end deverá utilizar um padrão arquitetural indicado no material didático, com MVC como referência recomendada.
+**RE05.** A aplicação deverá utilizar um SGBD relacional, não sendo permitido utilizar exclusivamente o armazenamento local do navegador para persistir cadastro, partidas, ratings ou classificação.
 
-**RE06.** A aplicação deverá utilizar um sistema gerenciador de banco de dados adequado ao projeto.
+**RE06.** O aplicativo Android deverá ser disponibilizado inicialmente por arquivo APK, sem exigência de publicação na Google Play Store.
 
-**RE07.** O aplicativo Android deverá ser disponibilizado inicialmente por meio de arquivo APK, sem exigência de publicação na Google Play Store.
+# 9. Pontos de validação técnica
 
-# 7. Funcionalidades futuras
+Os seguintes aspectos deverão ser avaliados durante o desenvolvimento, considerando limitações técnicas, segurança, disponibilidade e restrição de custo zero.
 
-As seguintes funcionalidades poderão ser consideradas em versões posteriores, não fazendo parte das entregas obrigatórias do escopo inicial do PIT II:
+**VT01.** Verificar a viabilidade da descoberta automática de dispositivos na mesma rede Wi-Fi, considerando as limitações dos navegadores.
+
+**VT02.** Avaliar mecanismos seguros de autenticação offline e sincronização de credenciais entre dispositivos.
+
+**VT03.** Definir o armazenamento e a sincronização dos avatares.
+
+**VT04.** Avaliar a comunicação P2P online, incluindo WebRTC, sinalização e mecanismos auxiliares de conectividade.
+
+**VT05.** Definir a solução de matchmaking compatível com a arquitetura e a restrição de custo zero.
+
+**VT06.** Avaliar serviços gratuitos de hospedagem e suas limitações.
+
+**VT07.** Definir os parâmetros técnicos do Glicko original, incluindo RD inicial, valores de referência e critérios de atualização após períodos de inatividade.
+
+**VT08.** Validar mecanismos de proteção contra manipulação de partidas, falsificação de resultados e alterações indevidas de rating.
+
+**VT09.** Definir o tratamento de pedidos de empate pendentes quando a partida terminar por outro motivo antes da resposta do adversário.
+
+**VT10.** Validar o funcionamento das modalidades local e online nos ambientes de navegador e aplicativo Android.
+
+# 10. Funcionalidades futuras
+
+As seguintes funcionalidades poderão ser consideradas em versões posteriores, não constituindo entregas obrigatórias da versão inicial do PIT II:
 
 - Recuperação de senha por e-mail.
 - Ampliação das funcionalidades do perfil.
-- Melhorias no sistema competitivo.
 - Novos recursos de personalização.
 - Expansão das funcionalidades multiplayer.
 - Novos recursos de interação entre jogadores.
 
-# 8. Pontos de validação técnica
+# 11. Considerações finais
 
-Alguns requisitos dependem de avaliação técnica durante o projeto, especialmente em razão das limitações de navegadores, redes locais e serviços gratuitos.
+Esta especificação estabelece os requisitos funcionais, regras de negócio, requisitos não funcionais, arquitetura, restrições e entregas técnicas do projeto Bubbles.
 
-**VT01.** Verificar a viabilidade de descoberta automática de dispositivos na mesma rede Wi-Fi, considerando as limitações de segurança dos navegadores.
+O documento servirá como referência para a elaboração dos modelos UML, modelagem e implementação do banco de dados, desenvolvimento do front-end e back-end, realização dos testes e validação da solução.
 
-**VT02.** Avaliar mecanismos seguros de autenticação offline e sincronização de credenciais entre dispositivos.
+Os pontos de validação técnica deverão ser analisados durante o desenvolvimento, sem serem considerados funcionalidades já implementadas ou soluções definitivamente escolhidas.
 
-**VT03.** Definir os mecanismos de armazenamento e sincronização dos avatares.
-
-**VT04.** Avaliar a comunicação P2P online, incluindo WebRTC, sinalização e mecanismos auxiliares de conectividade.
-
-**VT05.** Definir uma solução de matchmaking compatível com a arquitetura escolhida e com a restrição de custo zero.
-
-**VT06.** Avaliar serviços gratuitos de hospedagem e banco de dados, considerando suas limitações, disponibilidade e possibilidade de manutenção.
-
-**VT07.** Definir os parâmetros técnicos do Glicko original, incluindo o RD inicial, os valores de referência e os critérios de atualização após cada período de inatividade.
-
-**VT08.** Validar mecanismos de proteção contra manipulação de partidas, falsificação de resultados e alterações indevidas de rating.
-
-**VT09.** Definir o comportamento técnico para solicitações de empate pendentes quando a partida terminar por outro motivo antes da resposta do adversário.
-
-**VT10.** Validar o funcionamento das modalidades local e online nos ambientes de navegador e aplicativo Android.
-
-# 9. Considerações finais
-
-Esta especificação reúne os requisitos funcionais, regras de negócio, requisitos não funcionais e restrições iniciais do projeto Bubbles.
-
-O documento servirá como referência para a revisão dos modelos UML, modelagem do banco de dados, desenvolvimento do front-end e back-end, implementação das funcionalidades e realização dos testes.
-
-Os pontos de validação técnica deverão ser analisados durante o planejamento da arquitetura e o desenvolvimento, sem serem tratados como funcionalidades já implementadas ou soluções tecnológicas definitivamente escolhidas.
-
-A especificação poderá receber ajustes durante o ciclo de desenvolvimento, desde que as alterações sejam documentadas e mantenham a coerência entre requisitos, modelos, código e testes.
+As alterações realizadas durante o projeto deverão ser documentadas, mantendo a coerência entre requisitos, diagramas, banco de dados, código-fonte e resultados dos testes.
