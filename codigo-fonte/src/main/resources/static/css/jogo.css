@@ -1,0 +1,717 @@
+
+/* =========================================
+   BUBBLES - BEACH ARCADE
+   JavaFX WebView | CSS otimizado
+========================================= */
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #514b69;
+
+    background: linear-gradient(
+        to bottom,
+        #a9def5 0%,
+        #c7eafa 42%,
+        #8ed3df 43%,
+        #70c4d5 65%,
+        #f5dfb2 66%,
+        #f8e8c9 100%
+    );
+}
+
+/* =========================================
+   PRAIA E PALMEIRA
+========================================= */
+
+.cenário {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.palmeira {
+    position: absolute;
+    width: clamp(190px, 27vw, 310px);
+    height: auto;
+    right: -25px;
+    bottom: -35px;
+    opacity: .96;
+}
+
+.folhas {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: brisa 6s ease-in-out infinite;
+}
+
+@keyframes brisa {
+    0%, 100% {
+        transform: rotate(-1deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* =========================================
+   CONTEÚDO PRINCIPAL
+========================================= */
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px 18px;
+}
+
+.painel {
+    width: min(100%, 590px);
+    padding: 32px 30px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, .95);
+    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 27px;
+
+    box-shadow: 0 12px 25px rgba(73, 94, 130, .13);
+
+    animation: entrada .3s ease-out;
+}
+
+@keyframes entrada {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   TÍTULO
+========================================= */
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 8px;
+
+    color: #8064bd;
+    font-size: clamp(29px, 5vw, 39px);
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.icone-titulo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+.subtitulo {
+    margin-bottom: 25px;
+    color: #88839b;
+    font-size: 14px;
+}
+
+/* =========================================
+   JOGADORES
+========================================= */
+
+.jogadores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.jogador {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    background: #f8f6fc;
+    border: 1px solid #ece7f5;
+    border-radius: 15px;
+
+    font-size: 14px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.azul {
+    color: #4d9fd5;
+}
+
+.rosa {
+    color: #df83b5;
+}
+
+/* =========================================
+   BOLHAS DO TABULEIRO
+========================================= */
+
+.marcador-azul,
+.marcador-rosa {
+    display: inline-block;
+    flex-shrink: 0;
+
+    width: 17px;
+    height: 17px;
+
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 50%;
+}
+
+.marcador-azul {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #fff 0%,
+        #bcecff 19%,
+        #69bde9 56%,
+        #398cc7 100%
+    );
+
+    box-shadow: inset -2px -3px 4px rgba(36, 95, 150, .2);
+}
+
+.marcador-rosa {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #fff 0%,
+        #ffe0f0 19%,
+        #f3a6d0 56%,
+        #d975b0 100%
+    );
+
+    box-shadow: inset -2px -3px 4px rgba(150, 55, 110, .18);
+}
+
+/* =========================================
+   TURNO
+========================================= */
+
+.turno {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin: 5px auto 22px;
+    padding: 11px 20px;
+
+    background: #f2edfc;
+    border: 1px solid #e5daf7;
+    border-radius: 30px;
+
+    color: #76658f;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.turno .marcador-azul,
+.turno .marcador-rosa {
+    width: 13px;
+    height: 13px;
+}
+
+/* =========================================
+   TABULEIRO
+========================================= */
+
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 11px;
+
+    width: min(100%, 345px);
+    margin: 0 auto 25px;
+    padding: 13px;
+
+    background: linear-gradient(145deg, #e9e1f7, #f5edf9);
+    border: 1px solid #e2d7f1;
+    border-radius: 23px;
+
+    box-shadow: 0 5px 12px rgba(117, 94, 155, .1);
+}
+
+.tabuleiro form {
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.celula {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(145deg, #fff, #f9f6fd);
+    border: 1px solid #e9e2f2;
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    transition:
+        transform .14s ease,
+        background-color .14s ease;
+}
+
+.celula:not(:disabled):hover {
+    background: #eee7fa;
+    transform: scale(1.035);
+}
+
+.celula:not(:disabled):active {
+    transform: scale(.96);
+}
+
+.celula:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.celula .marcador-azul,
+.celula .marcador-rosa {
+    width: 55%;
+    height: 55%;
+    max-width: 62px;
+    max-height: 62px;
+
+    animation: aparecer .18s ease-out;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================================
+   RESULTADO
+========================================= */
+
+.mensagem {
+    margin: 17px auto 20px;
+    padding: 17px 15px;
+
+    background: #f4f0fc;
+    border: 1px solid #e5dcf4;
+    border-radius: 18px;
+
+    animation: entrada .25s ease-out;
+}
+
+.mensagem h2 {
+    margin-bottom: 5px;
+    color: #8064bd;
+    font-size: 24px;
+}
+
+.mensagem p {
+    color: #8d86a0;
+    font-size: 13px;
+}
+
+.mensagem.vitoria {
+    background: linear-gradient(135deg, #fff2fa, #f1efff);
+    border-color: #eadcf7;
+}
+
+/* =========================================
+   COMEMORAÇÃO
+   12 bolhas | otimizado para desempenho
+========================================= */
+
+.celebracao {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bolha-festa {
+    position: absolute;
+    bottom: -45px;
+
+    display: block;
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 50%;
+
+    opacity: 0;
+    background-color: #9bdcf2;
+
+    animation: subir-bolha 3.4s ease-out 1 both;
+}
+
+@keyframes subir-bolha {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(.6);
+    }
+
+    15% {
+        opacity: .85;
+    }
+
+    80% {
+        opacity: .75;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-105vh) scale(1);
+    }
+}
+
+/* POSIÇÕES E CORES DAS BOLHAS */
+
+.bolha-festa:nth-child(1) {
+    left: 5%;
+    width: 34px;
+    height: 34px;
+    background-color: #8ed5f5;
+    animation-delay: 0s;
+}
+
+.bolha-festa:nth-child(2) {
+    left: 13%;
+    width: 21px;
+    height: 21px;
+    background-color: #f3add2;
+    animation-delay: .15s;
+}
+
+.bolha-festa:nth-child(3) {
+    left: 22%;
+    width: 39px;
+    height: 39px;
+    background-color: #b7a1ed;
+    animation-delay: .3s;
+}
+
+.bolha-festa:nth-child(4) {
+    left: 31%;
+    width: 25px;
+    height: 25px;
+    background-color: #f6d17f;
+    animation-delay: .1s;
+}
+
+.bolha-festa:nth-child(5) {
+    left: 40%;
+    width: 31px;
+    height: 31px;
+    background-color: #a4e2c8;
+    animation-delay: .4s;
+}
+
+.bolha-festa:nth-child(6) {
+    left: 49%;
+    width: 42px;
+    height: 42px;
+    background-color: #8ed5f5;
+    animation-delay: .2s;
+}
+
+.bolha-festa:nth-child(7) {
+    left: 58%;
+    width: 23px;
+    height: 23px;
+    background-color: #f3add2;
+    animation-delay: .5s;
+}
+
+.bolha-festa:nth-child(8) {
+    left: 67%;
+    width: 36px;
+    height: 36px;
+    background-color: #b7a1ed;
+    animation-delay: .1s;
+}
+
+.bolha-festa:nth-child(9) {
+    left: 76%;
+    width: 26px;
+    height: 26px;
+    background-color: #f6d17f;
+    animation-delay: .35s;
+}
+
+.bolha-festa:nth-child(10) {
+    left: 84%;
+    width: 40px;
+    height: 40px;
+    background-color: #a4e2c8;
+    animation-delay: .2s;
+}
+
+.bolha-festa:nth-child(11) {
+    left: 92%;
+    width: 22px;
+    height: 22px;
+    background-color: #8ed5f5;
+    animation-delay: .55s;
+}
+
+.bolha-festa:nth-child(12) {
+    left: 97%;
+    width: 31px;
+    height: 31px;
+    background-color: #f3add2;
+    animation-delay: .4s;
+}
+
+/* =========================================
+   FORMULÁRIOS
+========================================= */
+
+.entrada-segundo-jogador {
+    margin-top: 20px;
+}
+
+.entrada-segundo-jogador h2 {
+    margin-bottom: 12px;
+    color: #8064bd;
+    font-size: 21px;
+}
+
+.entrada-segundo-jogador > p {
+    margin-bottom: 16px;
+    color: #88839b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.campo {
+    display: block;
+    width: 100%;
+    max-width: 340px;
+
+    margin: 12px auto;
+    padding: 13px 15px;
+
+    background: #fff;
+    border: 1px solid #e2d9ef;
+    border-radius: 13px;
+
+    color: #514b69;
+    font-size: 14px;
+    outline: none;
+}
+
+.campo:focus {
+    border-color: #a78bd7;
+    box-shadow: 0 0 0 2px rgba(167, 139, 215, .12);
+}
+
+.campo::placeholder {
+    color: #aaa3b7;
+}
+
+.aviso {
+    margin-top: 16px;
+    color: #9a91aa;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 43px;
+    margin: 7px 4px;
+    padding: 11px 20px;
+
+    background: linear-gradient(135deg, #a88bdb, #886bc2);
+    border: none;
+    border-radius: 13px;
+
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 7px rgba(126, 96, 184, .14);
+
+    transition: transform .14s ease;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+}
+
+.botao:active {
+    transform: scale(.97);
+}
+
+.botao.secundario {
+    background: linear-gradient(135deg, #e6a6cc, #d77fb1);
+}
+
+.acoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.acoes form {
+    margin: 0;
+}
+
+.voltar {
+    margin-top: 18px;
+}
+
+/* =========================================
+   MENSAGENS
+========================================= */
+
+.erro,
+.sucesso {
+    width: 100%;
+    margin: 12px auto;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.erro {
+    color: #a84458;
+    background: #fff0f2;
+    border: 1px solid #f4cbd3;
+}
+
+.sucesso {
+    color: #347e62;
+    background: #edfff6;
+    border: 1px solid #c6efdc;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 20px 12px;
+    }
+
+    .painel {
+        padding: 25px 16px;
+        border-radius: 22px;
+    }
+
+    h1 {
+        gap: 8px;
+        letter-spacing: 2px;
+    }
+
+    .icone-titulo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .jogadores {
+        gap: 8px;
+    }
+
+    .jogador {
+        padding: 9px 11px;
+        font-size: 12px;
+    }
+
+    .tabuleiro {
+        gap: 8px;
+        padding: 9px;
+    }
+
+    .celula {
+        border-radius: 13px;
+    }
+
+    .botao {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .palmeira {
+        width: 190px;
+        right: -65px;
+        bottom: -25px;
+        opacity: .78;
+    }
+}
+
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
