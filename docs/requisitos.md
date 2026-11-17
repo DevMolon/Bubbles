@@ -1,267 +1,362 @@
 # BUBBLES
 ## Especificação de Requisitos de Software
 
-**Versão:** 0.4  
+**Versão:** 0.5  
 **Projeto:** Bubbles — Jogo da Velha com Sistema Competitivo  
 **Curso:** Engenharia de Software — PIT II  
-**Status:** Escopo simplificado para implementação do MVP
+**Status:** Especificação revisada conforme o escopo do MVP e a implementação do projeto.
 
 ---
 
 # 1. Visão geral do projeto
 
-O Bubbles é um jogo da velha com identidade visual fofa, colorida e divertida, desenvolvido para proporcionar partidas entre dois jogadores.
+O Bubbles é uma aplicação de jogo da velha com identidade visual fofa, colorida e divertida, desenvolvida para proporcionar partidas entre dois jogadores no mesmo dispositivo.
 
-A versão inicial será uma aplicação web, acessível por navegadores de computadores e dispositivos Android, permitindo partidas entre dois jogadores no mesmo dispositivo.
+O sistema oferece cadastro e autenticação de jogadores, perfil individual, histórico de partidas, atualização de rating competitivo, classificação por ligas e ranking geral.
 
-O sistema contará com cadastro e autenticação de usuários, perfil individual, registro de partidas, sistema de rating, ligas competitivas e tabela de classificação.
+A aplicação utiliza Java e Spring Boot no back-end, com arquitetura MVC, e HTML, CSS e JavaScript na interface. A persistência é realizada por meio do Spring Data JPA, utilizando o banco de dados relacional configurado no projeto.
 
-A aplicação utilizará front-end em HTML, CSS e JavaScript, back-end em Java com Spring Boot, arquitetura MVC e banco de dados relacional SQLite.
+O sistema também possui uma opção de inicialização desktop por meio do JavaFX WebView.
 
-O projeto será desenvolvido priorizando simplicidade, funcionalidade, organização e atendimento aos requisitos técnicos do PIT II.
+O desenvolvimento prioriza simplicidade, organização, funcionalidade e atendimento aos requisitos técnicos e acadêmicos do PIT II.
 
 # 2. Requisitos funcionais (RF)
 
-## 2.1. Funcionamento do jogo
+Os requisitos funcionais descrevem os serviços e comportamentos que o sistema deverá oferecer.
 
-**RF01.** O sistema deverá disponibilizar um jogo da velha com tabuleiro de nove posições, organizado em três linhas e três colunas.
+## 2.1. Cadastro e autenticação
 
-**RF02.** O sistema deverá permitir partidas entre dois jogadores utilizando o mesmo dispositivo.
+**RF01.** O sistema deverá permitir o cadastro de jogadores utilizando nickname e senha, com endereço de e-mail opcional.
 
-**RF03.** O sistema deverá permitir que cada jogador marque uma posição livre durante seu turno.
+**RF02.** O sistema deverá impedir o cadastro de nicknames duplicados.
 
-**RF04.** O sistema deverá impedir a seleção de posições já ocupadas.
+**RF03.** O sistema deverá validar o nickname, exigindo preenchimento e respeitando o limite de 30 caracteres.
 
-**RF05.** O sistema deverá alternar automaticamente os turnos entre os jogadores.
+**RF04.** O sistema deverá exigir uma senha com, no mínimo, oito caracteres durante o cadastro.
 
-**RF06.** O sistema deverá identificar vitórias por combinações horizontais, verticais ou diagonais.
+**RF05.** O sistema deverá armazenar as senhas utilizando hash BCrypt, sem armazená-las em texto puro.
 
-**RF07.** O sistema deverá identificar automaticamente o empate natural quando todas as posições estiverem preenchidas sem vencedor.
+**RF06.** O sistema deverá permitir a autenticação utilizando nickname e senha.
 
-**RF08.** O sistema deverá utilizar bolhas coloridas como peças, substituindo os tradicionais símbolos X e O.
+**RF07.** O sistema deverá manter os dados de identificação do jogador autenticado durante a sessão.
 
-**RF09.** O sistema deverá atribuir uma cor diferente para cada jogador no início da partida, mantendo a identificação visual durante todo o jogo.
+**RF08.** O sistema deverá permitir o encerramento da sessão por meio da funcionalidade de logout.
 
-**RF10.** O sistema deverá apresentar o resultado da partida em uma sobreposição sobre o tabuleiro, identificando o vencedor ou informando o empate.
+**RF09.** O sistema deverá impedir o acesso às funcionalidades individuais quando não houver autenticação válida.
 
-## 2.2. Cadastro e autenticação
+## 2.2. Página inicial e navegação
 
-**RF11.** O sistema deverá permitir o cadastro de usuários mediante nickname e senha, sendo o endereço de e-mail opcional.
+**RF10.** O sistema deverá disponibilizar uma página inicial para jogadores autenticados.
 
-**RF12.** O sistema deverá impedir o cadastro de nicknames duplicados.
+**RF11.** O sistema deverá redirecionar jogadores não autenticados para a página de login ao tentarem acessar a página inicial.
 
-**RF13.** O sistema deverá permitir o login utilizando nickname e senha.
+**RF12.** A página inicial deverá disponibilizar acesso às funcionalidades principais do sistema, conforme a interface implementada.
 
-**RF14.** O sistema deverá exigir autenticação para acessar as funcionalidades individuais do sistema.
+## 2.3. Funcionamento do jogo
 
-**RF15.** O sistema deverá disponibilizar a funcionalidade de logout.
+**RF13.** O sistema deverá disponibilizar um tabuleiro de jogo da velha com nove posições, organizadas em três linhas e três colunas.
 
-**RF16.** O sistema deverá armazenar as senhas utilizando mecanismos seguros de hash, sem armazená-las em texto puro.
+**RF14.** O sistema deverá permitir partidas entre dois jogadores autenticados utilizando o mesmo dispositivo.
 
-## 2.3. Perfil do jogador
+**RF15.** O sistema deverá identificar o primeiro jogador pela cor azul e o segundo pela cor rosa.
 
-**RF17.** O sistema deverá disponibilizar um perfil individual para cada usuário.
+**RF16.** O sistema deverá iniciar cada partida com a vez do jogador azul.
 
-**RF18.** O perfil deverá apresentar nickname, rating competitivo e liga atual.
+**RF17.** O sistema deverá permitir que o jogador atual realize uma jogada selecionando uma posição livre do tabuleiro.
 
-**RF19.** O sistema deverá utilizar uma imagem padrão como avatar inicial do jogador.
+**RF18.** O sistema deverá alternar automaticamente os jogadores após cada jogada válida.
 
-## 2.4. Partidas e resultados
+**RF19.** O sistema deverá impedir jogadas em posições ocupadas.
 
-**RF20.** O sistema deverá permitir que os dois jogadores realizem suas jogadas alternadamente no mesmo dispositivo.
+**RF20.** O sistema deverá impedir jogadas fora dos limites do tabuleiro.
 
-**RF21.** O sistema deverá permitir a identificação dos jogadores participantes de cada partida.
+**RF21.** O sistema deverá impedir novas jogadas quando a partida já estiver finalizada.
 
-**RF22.** O sistema deverá registrar automaticamente o resultado da partida após seu encerramento.
+**RF22.** O sistema deverá identificar automaticamente vitórias por combinações horizontais, verticais ou diagonais.
 
-**RF23.** O sistema deverá disponibilizar uma funcionalidade para iniciar uma nova partida.
+**RF23.** O sistema deverá identificar automaticamente o empate quando as nove posições estiverem preenchidas sem que exista um vencedor.
 
-**RF24.** O sistema deverá disponibilizar uma opção para retornar ao menu principal após o encerramento da partida.
+**RF24.** O sistema deverá disponibilizar o estado atualizado do tabuleiro após cada jogada.
 
-## 2.5. Rating e classificação competitiva
+**RF25.** O sistema deverá disponibilizar a identificação do jogador da vez, a quantidade de jogadas realizadas e o resultado atual da partida.
 
-**RF25.** O sistema deverá disponibilizar um rating numérico individual para cada jogador.
+**RF26.** O sistema deverá permitir a reinicialização da partida, criando um novo estado de jogo.
 
-**RF26.** Todos os jogadores deverão iniciar com rating de 100 pontos.
+## 2.4. Controle dos participantes
 
-**RF27.** O sistema deverá utilizar o algoritmo Glicko original como referência para calcular as alterações de rating.
+**RF27.** O sistema deverá permitir a autenticação de um segundo jogador antes do início da partida.
 
-**RF28.** O cálculo deverá considerar o resultado das partidas e o desvio do rating (RD), conforme os parâmetros definidos para a implementação.
+**RF28.** O sistema deverá impedir que o mesmo jogador utilize sua própria conta como segundo participante.
 
-**RF29.** O sistema deverá considerar vitórias, derrotas e empates naturais no cálculo do rating.
+**RF29.** O sistema deverá impedir o início da partida quando o segundo jogador não estiver autenticado.
 
-**RF30.** O sistema deverá atualizar automaticamente a liga do jogador conforme seu rating.
+**RF30.** O sistema deverá permitir a desconexão do segundo jogador, removendo sua identificação da sessão e reiniciando o estado da partida.
 
-**RF31.** O sistema deverá disponibilizar uma tabela de classificação global, ordenada pelo rating dos jogadores.
+## 2.5. Registro e persistência das partidas
 
-## 2.6. Histórico e persistência
+**RF31.** O sistema deverá registrar automaticamente uma partida após sua conclusão.
 
-**RF32.** O sistema deverá utilizar banco de dados relacional para armazenar persistentemente as informações da aplicação.
+**RF32.** O sistema deverá registrar a data e o horário da partida.
 
-**RF33.** O sistema deverá armazenar os dados de cadastro dos jogadores, incluindo nickname, hash da senha e informações do perfil.
+**RF33.** O sistema deverá registrar os dois jogadores participantes, suas respectivas cores e seus resultados individuais.
 
-**RF34.** O sistema deverá registrar o histórico das partidas, incluindo participantes, resultado e datas.
+**RF34.** O sistema deverá armazenar o rating anterior e posterior de cada participante.
 
-**RF35.** O sistema deverá armazenar os ratings atuais e os dados necessários para seus cálculos.
+**RF35.** O sistema deverá impedir o registro duplicado da mesma partida durante a sessão de jogo.
 
-**RF36.** O sistema deverá manter os registros das partidas e dos ratings mesmo após o encerramento da sessão ou reinicialização da aplicação.
+**RF36.** O sistema deverá manter os registros das partidas e participações armazenados persistentemente no banco de dados.
 
-**RF37.** O sistema deverá preservar a integridade dos registros, evitando duplicidade de partidas e alterações indevidas nos resultados.
+## 2.6. Rating e classificação competitiva
+
+**RF37.** O sistema deverá atribuir um rating inicial de 100 pontos a cada jogador cadastrado.
+
+**RF38.** O sistema deverá utilizar o serviço de cálculo de rating baseado no método Glicko, considerando o rating, o desvio de rating (RD) e o resultado da partida.
+
+**RF39.** O sistema deverá considerar vitórias, derrotas e empates nos cálculos de atualização do rating.
+
+**RF40.** O sistema deverá atualizar o rating e o RD dos dois jogadores após o registro de uma partida concluída.
+
+**RF41.** O sistema deverá limitar os valores de RD entre 30 e 350, conforme os parâmetros definidos na implementação.
+
+**RF42.** O sistema deverá determinar a classificação do jogador conforme seu rating atual.
+
+**RF43.** O sistema deverá disponibilizar uma classificação global dos jogadores autenticados.
+
+**RF44.** O sistema deverá ordenar o ranking pelo rating em ordem decrescente.
+
+**RF45.** O sistema deverá utilizar o nickname em ordem crescente como critério de desempate no ranking.
+
+## 2.7. Perfil e histórico
+
+**RF46.** O sistema deverá permitir que jogadores autenticados consultem seu perfil individual.
+
+**RF47.** O perfil deverá apresentar o nickname e a classificação competitiva do jogador, incluindo seu rating.
+
+**RF48.** O sistema deverá disponibilizar o histórico de partidas do jogador.
+
+**RF49.** O histórico deverá apresentar as participações em partidas, incluindo os resultados registrados.
+
+**RF50.** O sistema deverá organizar o histórico da partida mais recente para a mais antiga.
+
+**RF51.** O sistema deverá impedir o acesso ao perfil sem autenticação.
+
+**RF52.** O sistema deverá encerrar a sessão quando o jogador identificado não for encontrado no banco de dados durante a consulta ao perfil.
+
+---
 
 # 3. Regras de negócio (RN)
 
-**RN01.** Cada partida deverá envolver exatamente dois jogadores.
+As regras de negócio definem as condições e restrições que orientam o funcionamento do Bubbles.
+
+**RN01.** Cada partida deverá envolver dois jogadores diferentes.
 
 **RN02.** Cada jogador deverá realizar uma jogada por turno.
 
-**RN03.** Uma posição ocupada não poderá receber outra marcação durante a mesma partida.
+**RN03.** O primeiro jogador utilizará a cor azul e o segundo utilizará a cor rosa.
 
-**RN04.** A partida deverá terminar quando houver uma vitória ou empate natural.
+**RN04.** Uma posição ocupada não poderá receber outra marcação durante a mesma partida.
 
-**RN05.** O nickname deverá ser único no sistema.
+**RN05.** A partida deverá ser encerrada quando houver uma vitória ou empate.
 
-**RN06.** O endereço de e-mail será opcional no cadastro.
+**RN06.** O nickname deverá ser único no sistema.
 
-**RN07.** As senhas deverão ser armazenadas em formato de hash seguro, nunca em texto puro.
+**RN07.** O endereço de e-mail será opcional no cadastro.
 
-**RN08.** O rating inicial de todos os jogadores será de 100 pontos.
+**RN08.** A senha deverá possuir pelo menos oito caracteres e ser armazenada por meio de hash BCrypt.
 
-**RN09.** O rating deverá ser atualizado conforme os resultados das partidas, utilizando o Glicko original.
+**RN09.** Todos os jogadores deverão iniciar com rating de 100 pontos.
 
-**RN10.** O cálculo do rating deverá considerar rating e RD, conforme os parâmetros técnicos estabelecidos para o projeto.
+**RN10.** O RD inicial dos jogadores será de 350 pontos.
 
-**RN11.** Empates naturais deverão ser considerados resultados empatados no cálculo do Glicko.
+**RN11.** O cálculo do rating deverá considerar os resultados das partidas e os parâmetros do método Glicko implementado.
 
-**RN12.** As ligas serão determinadas exclusivamente pelo rating individual do jogador.
+**RN12.** Os resultados individuais deverão ser definidos da seguinte maneira:
+- Vitória: o jogador vencedor recebe VITORIA.
+- Derrota: o jogador adversário recebe DERROTA.
+- Empate: ambos recebem EMPATE.
 
-**RN13.** A classificação deverá apresentar os jogadores ordenados por rating, considerando os dados persistidos no banco.
+**RN13.** O RD deverá respeitar o limite mínimo de 30 e máximo de 350.
 
-**RN14.** Toda partida concluída deverá possuir seu resultado registrado no banco de dados.
+**RN14.** O rating não poderá assumir valores negativos.
 
-**RN15.** As operações de cadastro, autenticação, registro de partidas e atualização de rating deverão preservar a integridade dos dados.
+**RN15.** A classificação competitiva será determinada exclusivamente pelo rating atual do jogador.
+
+**RN16.** Jogadores com rating inferior a 100 permanecerão sem classificação.
+
+**RN17.** O ranking deverá utilizar o rating em ordem decrescente e o nickname em ordem crescente para desempate.
+
+**RN18.** Cada participação deverá estar vinculada a um único jogador e a uma única partida.
+
+**RN19.** Cada partida concluída deverá possuir duas participações registradas, uma para cada jogador.
+
+**RN20.** O registro da partida deverá atualizar os dados competitivos dos dois participantes de maneira transacional.
+
+**RN21.** O sistema deverá impedir que a mesma partida seja registrada novamente durante a sessão correspondente.
+
+---
 
 # 4. Classificação competitiva
 
-O Bubbles utilizará cinco ligas, determinadas pela pontuação do jogador.
+O Bubbles utiliza cinco ligas competitivas, determinadas conforme o rating individual do jogador.
 
-| Liga | Faixa de rating |
+| Classificação | Faixa de rating |
 |---|---:|
-| Bronze | 100–199 |
-| Prata | 200–349 |
-| Ouro | 350–549 |
-| Platina | 550–799 |
+| Sem classificação | Abaixo de 100 |
+| Bronze | 100 a 199 |
+| Prata | 200 a 349 |
+| Ouro | 350 a 549 |
+| Platina | 550 a 799 |
 | Diamante | 800 ou mais |
 
-Todos os jogadores iniciarão na liga Bronze, com 100 pontos.
+Todos os jogadores iniciam com rating de 100 pontos, correspondendo à liga Bronze.
 
-A progressão e o rebaixamento ocorrerão automaticamente conforme as alterações do rating.
+A classificação é recalculada conforme o rating atual do jogador.
 
-As faixas são configurações próprias do Bubbles e poderão ser ajustadas futuramente.
+As faixas são regras próprias do Bubbles e podem ser modificadas em versões futuras.
+
+---
 
 # 5. Requisitos não funcionais (RNF)
 
+Os requisitos não funcionais definem características de qualidade e condições gerais de funcionamento da aplicação.
+
 **RNF01 — Usabilidade:** a interface deverá ser simples, intuitiva, agradável e adequada à identidade visual do Bubbles.
 
-**RNF02 — IHC:** o sistema deverá apresentar menus claros, navegação intuitiva, telas organizadas e mensagens compreensíveis.
+**RNF02 — Interface humano-computador:** o sistema deverá apresentar menus organizados, navegação compreensível, telas consistentes e mensagens claras.
 
 **RNF03 — Feedback visual:** a interface deverá informar os turnos, as jogadas realizadas, os resultados e os erros de operação.
 
-**RNF04 — Consistência visual:** os elementos da interface deverão manter padrões visuais e comportamentais consistentes.
+**RNF04 — Consistência visual:** os componentes da interface deverão manter padrões visuais e comportamentais consistentes.
 
-**RNF05 — Compatibilidade:** a aplicação deverá funcionar em navegadores de computadores e dispositivos Android.
+**RNF05 — Responsividade:** a interface deverá adaptar sua apresentação a diferentes dimensões de tela, conforme os recursos implementados no CSS.
 
-**RNF06 — Segurança:** o sistema deverá proteger credenciais, validar os dados recebidos e impedir operações não autorizadas.
+**RNF06 — Compatibilidade:** a aplicação deverá ser compatível com navegadores modernos de computadores e dispositivos móveis, sujeita à validação prática.
 
-**RNF07 — Integridade:** o sistema deverá preservar a consistência dos dados, partidas, resultados e ratings.
+**RNF07 — Segurança:** o sistema deverá proteger as credenciais, validar os dados recebidos e controlar o acesso às funcionalidades autenticadas.
 
-**RNF08 — Confiabilidade:** o sistema deverá tratar erros de processamento e falhas de persistência sem comprometer indevidamente os registros.
+**RNF08 — Integridade:** o sistema deverá preservar a consistência dos dados dos jogadores, partidas, participações e ratings.
 
-**RNF09 — Manutenibilidade:** o código deverá ser organizado em componentes que facilitem correções, testes e futuras ampliações.
+**RNF09 — Confiabilidade:** a aplicação deverá tratar erros de processamento e persistência sem comprometer indevidamente os registros.
 
-**RNF10 — Eficiência:** as operações de interface, jogadas, consultas e gravações deverão apresentar tempos de resposta adequados.
+**RNF10 — Manutenibilidade:** o código deverá ser organizado em componentes com responsabilidades definidas, facilitando correções, testes e futuras ampliações.
+
+**RNF11 — Eficiência:** as operações de navegação, jogadas, consultas e gravações deverão apresentar tempos de resposta adequados à utilização da aplicação.
+
+**RNF12 — Testabilidade:** os principais serviços e regras de negócio deverão permitir a execução de testes automatizados.
+
+**RNF13 — Acessibilidade:** a interface deverá buscar legibilidade, clareza de mensagens e facilidade de interação, respeitando as limitações dos dispositivos utilizados.
+
+---
 
 # 6. Arquitetura e tecnologias
 
-**ARQ01.** O front-end deverá utilizar HTML, CSS e JavaScript.
+**ARQ01.** O back-end deverá utilizar Java com Spring Boot.
 
-**ARQ02.** O back-end deverá utilizar Java com Spring Boot.
+**ARQ02.** A aplicação deverá seguir o padrão arquitetural MVC, separando responsabilidades entre Model, View e Controller.
 
-**ARQ03.** A aplicação deverá seguir a arquitetura MVC, organizando suas responsabilidades em:
+**ARQ03.** O front-end deverá utilizar HTML, CSS e JavaScript.
 
-- **Model:** entidades, regras de negócio e persistência dos dados.
-- **View:** interface apresentada ao usuário.
-- **Controller:** recebimento de requisições, validações e coordenação das operações.
+**ARQ04.** A camada de apresentação deverá utilizar os mecanismos de templates configurados no projeto.
 
-**ARQ04.** A aplicação deverá utilizar SQLite como sistema gerenciador de banco de dados relacional.
+**ARQ05.** A persistência deverá utilizar Spring Data JPA e Jakarta Persistence.
 
-**ARQ05.** A persistência deverá utilizar mecanismos que permitam o relacionamento entre jogadores, partidas e ratings.
+**ARQ06.** O banco de dados deverá utilizar o sistema relacional configurado para o projeto, com SQLite previsto no planejamento.
 
-**ARQ06.** Os testes automatizados deverão utilizar JUnit, contemplando as principais regras de negócio.
+**ARQ07.** Os testes automatizados deverão utilizar JUnit 5 e Mockito.
 
-**ARQ07.** O código-fonte deverá ser organizado e disponibilizado em repositório público no GitHub.
+**ARQ08.** O projeto deverá manter separação entre controladores, serviços, repositórios e entidades.
+
+**ARQ09.** A aplicação deverá disponibilizar os recursos necessários à inicialização desktop por meio de JavaFX WebView, conforme a implementação existente.
+
+**ARQ10.** O código-fonte deverá ser organizado e disponibilizado em repositório GitHub.
+
+---
 
 # 7. Documentação e entregas técnicas
 
-**DOC01.** O projeto deverá apresentar os diagramas UML revisados, incluindo classes, casos de uso, sequência e atividades.
+**DOC01.** O projeto deverá apresentar o diagrama de casos de uso UML.
 
-**DOC02.** Deverá ser elaborado o diagrama de classes de persistência, representando entidades, atributos e relacionamentos.
+**DOC02.** O projeto deverá apresentar o diagrama de classes UML.
 
-**DOC03.** Deverão ser apresentados os modelos conceitual e lógico normalizado do banco de dados.
+**DOC03.** O projeto deverá apresentar o diagrama de sequência UML.
 
-**DOC04.** O projeto deverá apresentar a implementação e documentação do modelo físico do banco de dados.
+**DOC04.** O projeto deverá apresentar o diagrama de atividades UML.
 
-**DOC05.** Deverá ser elaborado um dicionário de dados contendo tabelas, campos, tipos, restrições e relacionamentos.
+**DOC05.** Deverá ser elaborado o diagrama de classes de persistência, representando entidades, atributos e relacionamentos.
 
-**DOC06.** Deverão ser documentados os elementos de IHC, incluindo telas, navegação, mensagens e protótipo da interface.
+**DOC06.** Deverão ser apresentados os modelos conceitual e lógico normalizado do banco de dados.
 
-**DOC07.** O repositório deverá conter código-fonte, arquivos necessários à execução, documentação e instruções de utilização.
+**DOC07.** O projeto deverá apresentar a implementação e documentação do modelo físico do banco de dados.
 
-**DOC08.** O projeto deverá apresentar os testes automatizados e seus respectivos resultados.
+**DOC08.** Deverá ser elaborado um dicionário de dados contendo tabelas, campos, tipos, restrições e relacionamentos.
 
-**DOC09.** A solução deverá ser disponibilizada para avaliação de cinco colegas ou usuários, com registro individual de opiniões, data, funcionalidades testadas, falhas identificadas e sugestões.
+**DOC09.** Deverão ser documentados os elementos de IHC, incluindo telas, navegação, mensagens e interação.
 
-**DOC10.** Deverá ser elaborado um laudo de qualidade contendo o que funcionou, problemas encontrados, correções realizadas, evidências e funcionalidades não testadas, com as respectivas justificativas.
+**DOC10.** Deverá ser apresentado o protótipo da interface.
 
-**DOC11.** Deverão ser produzidos os vídeos demonstrativos solicitados na atividade, contemplando a solução e as melhorias realizadas após as avaliações.
+**DOC11.** O repositório deverá conter o código-fonte, os arquivos necessários à execução e a documentação do projeto.
 
-# 8. Restrições do projeto
+**DOC12.** O projeto deverá apresentar instruções de instalação, inicialização e utilização.
 
-**RE01.** O projeto deverá ser desenvolvido com custo zero durante o PIT II, utilizando ferramentas e serviços gratuitos.
+**DOC13.** Deverão ser apresentados os testes automatizados e seus respectivos resultados de execução.
 
-**RE02.** O código-fonte deverá ser disponibilizado em repositório público no GitHub.
+**DOC14.** A aplicação deverá ser disponibilizada para avaliação de cinco colegas ou usuários, conforme as exigências da atividade.
+
+**DOC15.** Deverão ser registrados individualmente os resultados das avaliações, incluindo data, funcionalidades testadas, opiniões, falhas identificadas e sugestões.
+
+**DOC16.** Deverá ser elaborado um laudo de qualidade contendo os resultados das avaliações, problemas encontrados, correções realizadas, evidências e funcionalidades não testadas, com suas respectivas justificativas.
+
+**DOC17.** Deverão ser produzidos os vídeos demonstrativos solicitados na atividade, apresentando a solução e as melhorias realizadas após as avaliações.
+
+---
+
+# 8. Restrições do projeto (RE)
+
+**RE01.** O projeto deverá utilizar ferramentas e tecnologias gratuitas durante o desenvolvimento acadêmico, respeitando as condições estabelecidas para o PIT II.
+
+**RE02.** O código-fonte deverá ser disponibilizado em repositório público no GitHub, conforme a orientação da atividade.
 
 **RE03.** O front-end deverá utilizar HTML, CSS e JavaScript.
 
-**RE04.** O back-end deverá utilizar Java com Spring Boot e seguir a arquitetura MVC.
+**RE04.** O back-end deverá utilizar Java com Spring Boot.
 
-**RE05.** A aplicação deverá utilizar SQLite como banco de dados relacional.
+**RE05.** A arquitetura deverá seguir o padrão MVC.
 
-**RE06.** Não será permitido utilizar exclusivamente o armazenamento local do navegador para persistir cadastros, partidas, ratings ou classificação.
+**RE06.** A persistência deverá utilizar banco de dados relacional, com SQLite previsto para o projeto.
+
+**RE07.** Não será permitido utilizar exclusivamente o armazenamento local do navegador para persistir cadastros, partidas, ratings ou classificação.
+
+**RE08.** A versão inicial deverá contemplar partidas entre dois jogadores no mesmo dispositivo, não sendo obrigatório desenvolver comunicação entre dispositivos diferentes.
+
+---
 
 # 9. Funcionalidades futuras
 
-As seguintes funcionalidades ficam fora do escopo de implementação inicial do PIT II e poderão ser consideradas em versões posteriores:
+As seguintes funcionalidades ficam fora do escopo inicial do PIT II e poderão ser consideradas em versões posteriores:
 
-- Multiplayer entre dispositivos pela rede Wi-Fi.
-- Multiplayer online por meio de comunicação P2P.
-- Busca automática de adversários e matchmaking.
+- Partidas entre dispositivos pela mesma rede Wi-Fi.
+- Multiplayer online.
+- Comunicação P2P.
+- Matchmaking automático.
 - Descoberta automática de dispositivos na rede local.
 - Autenticação offline e sincronização de credenciais.
 - Upload e sincronização de avatares personalizados.
 - Aplicativo Android distribuído por APK.
-- Solicitação de empate, desistência e revanche entre jogadores remotos.
+- Solicitação de empate e revanche entre jogadores remotos.
 - Recursos adicionais de interação e personalização.
 
 Essas funcionalidades não serão consideradas entregas implementadas na versão inicial.
 
+---
+
 # 10. Considerações finais
 
-Esta especificação estabelece o escopo funcional e técnico da versão inicial do Bubbles, priorizando uma aplicação web simples, funcional e documentada.
+Esta especificação estabelece os requisitos funcionais, regras de negócio, requisitos não funcionais, restrições e entregas técnicas do Bubbles.
 
-A solução será desenvolvida com Java, Spring Boot, arquitetura MVC, HTML, CSS, JavaScript e SQLite, contemplando cadastro, autenticação, jogo, persistência de partidas, rating e classificação.
+A versão inicial prioriza o desenvolvimento de uma aplicação organizada, com cadastro, autenticação, partidas entre dois jogadores no mesmo dispositivo, persistência dos resultados, sistema de rating, classificação competitiva e histórico individual.
 
-O documento servirá como referência para a elaboração dos diagramas UML, modelagem do banco de dados, desenvolvimento, testes automatizados e validação da aplicação.
+O documento servirá como referência para a modelagem UML, documentação do banco de dados, desenvolvimento, testes automatizados e validação da aplicação.
 
-As funcionalidades adiadas permanecerão registradas como possibilidades futuras, não fazendo parte das entregas obrigatórias da versão inicial.
+Os requisitos deverão permanecer coerentes com o código-fonte e com os resultados efetivamente obtidos durante os testes.
 
-Qualquer alteração posterior deverá ser documentada, mantendo a coerência entre requisitos, modelos, código-fonte e resultados dos testes.
+Qualquer alteração posterior deverá ser registrada, mantendo a consistência entre a especificação, os modelos, a implementação e a documentação final.
