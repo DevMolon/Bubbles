@@ -1,0 +1,140 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fff0f5, #e8f4ff);
+    color: #41415c;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(80, 80, 120, 0.08);
+}
+
+h1, h2 {
+    color: #7770c9;
+}
+
+.nickname {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.stat {
+    padding: 18px;
+    background: #f5f2ff;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 23px;
+    color: #7770c9;
+    margin-top: 8px;
+}
+
+.historico-item {
+    padding: 15px 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.vitoria {
+    color: #249b70;
+    font-weight: bold;
+}
+
+.derrota {
+    color: #df647c;
+    font-weight: bold;
+}
+
+.empate {
+    color: #b28a35;
+    font-weight: bold;
+}
+
+.botao {
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    background: #8980df;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.botao:hover {
+    background: #7770c9;
+}
+
+.vazio {
+    color: #888;
+    padding: 15px 0;
+}
+
+/* Histórico de partidas antigas */
+
+.historico-antigo {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.mais-partidas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f5f2ff;
+    color: #7770c9;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.2s ease;
+}
+
+.mais-partidas::-webkit-details-marker {
+    display: none;
+}
+
+.mais-partidas:hover {
+    background: #ece6ff;
+}
+
+.tres-pontos {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.texto-partidas {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.historico-antigo[open] .tres-pontos {
+    color: #a18add;
+}
