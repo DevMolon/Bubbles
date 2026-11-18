@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbles | Início</title>
+    <link rel="stylesheet" th:href="@{/css/inicio.css}">
+</head>
+
+<body>
+
+    <header>
+        <h1>
+            <img src="/icons/bolhas.svg" alt="" class="icone-titulo">
+            Bubbles
+        </h1>
+
+        <form action="/logout" method="post">
+            <button class="sair" type="submit">Sair</button>
+        </form>
+    </header>
+
+    <main>
+        <section class="painel">
+
+            <h2>Bem-vindo ao Bubbles!</h2>
+
+            <p class="descricao">
+                <span>Prepare suas bolhas e desafie seus amigos!</span>
+            </p>
+
+            <div class="menu">
+
+                <a href="/jogo" class="botao jogar">
+                    <img src="/icons/bolhas.svg" alt="" class="icone-botao">
+                    Jogar
+                </a>
+
+                <a href="/perfil" class="botao">
+                    <img src="/icons/perfil.svg" alt="" class="icone-botao">
+                    Meu perfil
+                </a>
+
+                <a href="/ranking" class="botao">
+                    <img src="/icons/trofeu.svg" alt="" class="icone-botao">
+                    Ranking global
+                </a>
+
+            </div>
+
+            <footer>
+                Bubbles — Diversão em cada jogada!
+            </footer>
+
+        </section>
+    </main>
+
+</body>
+</html>
