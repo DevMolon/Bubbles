@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbles | Partida</title>
+    <link rel="stylesheet" th:href="@{/css/jogo.css}">
+</head>
+
+<body>
+
+    <!-- CENÁRIO: PALMEIRA VETORIAL -->
+    <div class="cenário" aria-hidden="true">
+
+        <svg class="palmeira" viewBox="0 0 300 340"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <path d="M185 340 Q180 250 165 170 Q158 130 155 105"
+                  fill="none" stroke="#9B7657" stroke-width="19"
+                  stroke-linecap="round"/>
+
+            <path d="M183 340 Q177 245 163 170"
+                  fill="none" stroke="#C49A70" stroke-width="5"
+                  stroke-linecap="round"/>
+
+            <g class="folhas">
+
+                <path d="M155 108 Q90 45 22 72 Q85 65 117 112 Q60 95 20 125 Q100 100 155 125"
+                      fill="#55A985" stroke="#438D72" stroke-width="2"/>
+
+                <path d="M157 105 Q125 25 65 12 Q115 48 137 111 Q105 65 52 55 Q112 95 157 125"
+                      fill="#70BE91" stroke="#4C9D78" stroke-width="2"/>
+
+                <path d="M160 105 Q165 28 220 8 Q183 48 170 111 Q205 65 267 54 Q205 93 162 128"
+                      fill="#69B98A" stroke="#4C9D78" stroke-width="2"/>
+
+                <path d="M160 110 Q220 52 285 85 Q225 76 184 119 Q240 105 278 145 Q210 116 160 132"
+                      fill="#55A985" stroke="#438D72" stroke-width="2"/>
+
+                <path d="M155 112 Q105 82 74 105 Q115 103 151 135"
+                      fill="#8BCB9B" stroke="#65AA82" stroke-width="2"/>
+
+                <path d="M163 112 Q190 78 228 94 Q190 100 165 135"
+                      fill="#8BCB9B" stroke="#65AA82" stroke-width="2"/>
+
+            </g>
+        </svg>
+    </div>
+
+    <div class="container">
+
+        <div class="painel">
+
+            <!-- CABEÇALHO -->
+            <h1>
+                <img th:src="@{/icons/bolhas.svg}" alt="" class="icone-titulo">
+                BUBBLES
+                <img th:src="@{/icons/bolhas.svg}" alt="" class="icone-titulo">
+            </h1>
+
+            <p class="subtitulo">Uma partida divertida de jogo da velha!</p>
+
+            <!-- MENSAGENS -->
+            <p class="erro" id="mensagem-erro"
+               th:if="${erro}" th:text="${erro}"></p>
+
+            <p class="sucesso" id="mensagem-sucesso"
+               th:if="${sucesso}" th:text="${sucesso}"></p>
+
+            <!-- ENTRADA DO SEGUNDO JOGADOR -->
+            <div th:if="${!segundoJogadorAutenticado}"
+                 class="entrada-segundo-jogador">
+
+                <h2>
+                    <span class="marcador-rosa"></span>
+                    Entrada do segundo jogador
+                </h2>
+
+                <p>
+                    Para começar a partida, o segundo jogador
+                    precisa entrar na própria conta.
+                </p>
+
+                <div class="jogador azul">
+                    <span class="marcador-azul"></span>
+                    Azul:
+                    <span th:text="${jogadorAzul.nickname}"></span>
+                </div>
+
+                <form th:action="@{/jogo/segundo-login}" method="post">
+
+                    <input class="campo"
+                           type="text"
+                           name="nickname"
+                           placeholder="Nickname do segundo jogador"
+                           maxlength="30"
+                           required
+                           autocomplete="username">
+
+                    <input class="campo"
+                           type="password"
+                           name="senha"
+                           placeholder="Senha do segundo jogador"
+                           required
+                           autocomplete="current-password">
+
+                    <button type="submit" class="botao secundario">
+                        Entrar e participar
+                    </button>
+
+                </form>
+
+                <p class="aviso">
+                    O tabuleiro será liberado somente depois
+                    da autenticação dos dois jogadores.
+                </p>
+
+            </div>
+
+            <!-- PARTIDA -->
+            <div th:if="${segundoJogadorAutenticado}"
+                 id="area-partida">
+
+                <!-- JOGADORES -->
+                <div class="jogadores">
+
+                    <div class="jogador azul">
+                        <span class="marcador-azul"></span>
+                        Azul:
+                        <span th:text="${jogadorAzul.nickname}"></span>
+                    </div>
+
+                    <div class="jogador rosa">
+                        <span class="marcador-rosa"></span>
+                        Rosa:
+                        <span th:text="${jogadorRosa.nickname}"></span>
+                    </div>
+
+                </div>
+
+                <!-- TURNO -->
+                <div class="turno"
+                     id="turno"
+                     th:if="${resultado == 'EM_ANDAMENTO'}">
+
+                    Vez de:
+
+                    <span th:if="${jogadorAtual == 'AZUL'}" class="azul">
+                        <span class="marcador-azul"></span>
+                        Azul
+                    </span>
+
+                    <span th:if="${jogadorAtual == 'ROSA'}" class="rosa">
+                        <span class="marcador-rosa"></span>
+                        Rosa
+                    </span>
+
+                </div>
+
+                <!-- COMEMORAÇÃO -->
+                <div class="celebracao"
+                     th:if="${resultado == 'VITORIA_AZUL' or resultado == 'VITORIA_ROSA'}"
+                     aria-hidden="true">
+
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+                    <span class="bolha-festa"></span>
+
+                </div>
+
+                <!-- RESULTADO -->
+                <div class="mensagem"
+                     id="mensagem-resultado"
+                     th:if="${resultado != 'EM_ANDAMENTO'}"
+                     th:classappend="${resultado == 'VITORIA_AZUL' or resultado == 'VITORIA_ROSA'} ? ' vitoria' : ''">
+
+                    <h2 th:if="${resultado == 'VITORIA_AZUL'}">
+                        Azul venceu!
+                    </h2>
+
+                    <h2 th:if="${resultado == 'VITORIA_ROSA'}">
+                        Rosa venceu!
+                    </h2>
+
+                    <h2 th:if="${resultado == 'EMPATE'}">
+                        Deu empate!
+                    </h2>
+
+                    <p>Partida registrada!</p>
+
+                </div>
+
+                <!-- TABULEIRO -->
+                <div class="tabuleiro" id="tabuleiro">
+
+                    <th:block th:each="linha, i : ${tabuleiro}">
+                        <th:block th:each="celula, j : ${linha}">
+
+                            <form th:action="@{/jogo/jogada}" method="post">
+
+                                <input type="hidden"
+                                       name="linha"
+                                       th:value="${i.index}">
+
+                                <input type="hidden"
+                                       name="coluna"
+                                       th:value="${j.index}">
+
+                                <button type="submit"
+                                        class="celula"
+                                        th:disabled="${celula != null or resultado != 'EM_ANDAMENTO'}"
+                                        th:classappend="${celula == 'AZUL'} ? ' azul' : (${celula == 'ROSA'} ? ' rosa' : '')">
+
+                                    <span th:if="${celula == 'AZUL'}"
+                                          class="marcador-azul"></span>
+
+                                    <span th:if="${celula == 'ROSA'}"
+                                          class="marcador-rosa"></span>
+
+                                </button>
+
+                            </form>
+
+                        </th:block>
+                    </th:block>
+
+                </div>
+
+                <!-- AÇÕES -->
+                <div class="acoes">
+
+                    <form th:action="@{/jogo/reiniciar}" method="post">
+                        <button type="submit" class="botao">
+                            Nova partida
+                        </button>
+                    </form>
+
+                    <form th:action="@{/jogo/segundo-logout}" method="post">
+                        <button type="submit" class="botao secundario">
+                            Trocar segundo jogador
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- VOLTAR -->
+            <a th:href="@{/inicio}" class="botao voltar">
+                Voltar ao início
+            </a>
+
+        </div>
+    </div>
+
+    <script th:src="@{/js/jogo.js}"></script>
+
+</body>
+</html>
