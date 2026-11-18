@@ -19,7 +19,7 @@ Jogo digital inspirado no clássico Tic-Tac-Toe (Jogo da Velha), desenvolvido co
 
 ## Execução
 
-Consulte as instruções de configuração e execução do projeto na documentação (docs), terá um arquivo .pdf chamado de: "instruções".
+Consulte as instruções de configuração e execução do projeto na documentação (docs, em "download da solução"), terá um arquivo .pdf chamado de: "instruções".
 
 ## Contexto
 
