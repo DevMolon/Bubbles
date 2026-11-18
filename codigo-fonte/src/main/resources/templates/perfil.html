@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | Bubbles</title>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>
+            <img src="/icons/bolhas.svg"
+                 alt=""
+                 style="width: 42px; height: 42px; vertical-align: middle;">
+            Meu Perfil
+        </h1>
+
+        <p class="nickname" th:text="${jogador.nickname}">
+            Jogador
+        </p>
+
+        <p>Bem-vindo ao seu espaço no Bubbles!</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Estatísticas</h2>
+
+        <div class="stats">
+
+            <div class="stat">
+                Rating
+                <strong th:text="${#numbers.formatDecimal(jogador.rating, 1, 1)}">
+                    100.0
+                </strong>
+            </div>
+
+            <div class="stat">
+                Liga
+                <strong th:text="${liga}">
+                    Bronze
+                </strong>
+            </div>
+
+            <div class="stat">
+                RD
+                <strong th:text="${#numbers.formatDecimal(jogador.rd, 1, 1)}">
+                    350.0
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Botão voltar ao início -->
+
+    <a th:href="@{/inicio}" class="botao">
+        Voltar ao início
+    </a>
+
+    <!-- Histórico de partidas -->
+
+    <div class="card">
+
+        <h2>
+            <img src="/icons/trofeu.svg"
+                 alt=""
+                 style="width: 30px; height: 30px; vertical-align: middle;">
+            Histórico de partidas
+        </h2>
+
+        <!-- Mensagem quando não existem partidas -->
+
+        <div th:if="${#lists.isEmpty(historico)}" class="vazio">
+            Você ainda não possui partidas registradas.
+        </div>
+
+        <!-- Exibe somente as três partidas mais recentes -->
+
+        <div th:each="participacao, status : ${historico}"
+             th:if="${status.index < 3}"
+             class="historico-item">
+
+            <strong
+                th:text="${participacao.resultado}"
+                th:classappend="${participacao.resultado.name() == 'VITORIA'} ? ' vitoria' :
+                (${participacao.resultado.name() == 'DERROTA'} ? ' derrota' : ' empate')">
+                Resultado
+            </strong>
+
+            <p>
+                Data:
+                <span th:text="${#temporals.format(participacao.partida.dataHora, 'dd/MM/yyyy HH:mm')}">
+                    Data da partida
+                </span>
+            </p>
+
+            <p>
+                Rating:
+                <span th:text="${#numbers.formatDecimal(participacao.ratingAntes, 1, 1)}"></span>
+                →
+                <span th:text="${#numbers.formatDecimal(participacao.ratingDepois, 1, 1)}"></span>
+            </p>
+
+        </div>
+
+        <!-- Expansão das partidas anteriores -->
+
+        <details class="historico-antigo"
+                 th:if="${#lists.size(historico) > 3}">
+
+            <summary class="mais-partidas">
+
+                <span class="tres-pontos">•••</span>
+
+                <span class="texto-partidas">
+                    Ver partidas anteriores
+                </span>
+
+            </summary>
+
+            <!-- Exibe as partidas a partir da quarta -->
+
+            <div th:each="participacao, status : ${historico}"
+                 th:if="${status.index >= 3}"
+                 class="historico-item">
+
+                <strong
+                    th:text="${participacao.resultado}"
+                    th:classappend="${participacao.resultado.name() == 'VITORIA'} ? ' vitoria' :
+                    (${participacao.resultado.name() == 'DERROTA'} ? ' derrota' : ' empate')">
+                    Resultado
+                </strong>
+
+                <p>
+                    Data:
+                    <span th:text="${#temporals.format(participacao.partida.dataHora, 'dd/MM/yyyy HH:mm')}">
+                        Data da partida
+                    </span>
+                </p>
+
+                <p>
+                    Rating:
+                    <span th:text="${#numbers.formatDecimal(participacao.ratingAntes, 1, 1)}"></span>
+                    →
+                    <span th:text="${#numbers.formatDecimal(participacao.ratingDepois, 1, 1)}"></span>
+                </p>
+
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+
+</body>
+</html>
