@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Bubbles</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>
+            <img src="/icons/bolhas.svg"
+                 alt=""
+                 style="width: 42px; height: 42px; vertical-align: middle;">
+            Bubbles
+        </h1>
+
+        <p>Entre na sua conta e comece a jogar!</p>
+
+        <div class="mensagem"
+             th:if="${erro}"
+             th:text="${erro}">
+        </div>
+
+        <div class="mensagem sucesso"
+             th:if="${sucesso}"
+             th:text="${sucesso}">
+        </div>
+
+        <form action="/login" method="post">
+
+            <input
+                type="text"
+                name="nickname"
+                placeholder="Seu nickname"
+                required>
+
+            <input
+                type="password"
+                name="senha"
+                placeholder="Sua senha"
+                required>
+
+            <button type="submit">Entrar</button>
+
+        </form>
+
+        <p>
+            Ainda não tem conta?
+            <a href="/cadastro">Criar conta</a>
+        </p>
+
+    </main>
+
+</body>
+</html>
